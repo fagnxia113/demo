@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>线下活动 - 临港创新智算服务平台</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="config.js"></script>
+    <style>
+        :root {
+            --primary-color: #3b82f6;
+            --primary-dark: #2563eb;
+            --primary-gradient: linear-gradient(135deg, #3b82f6, #2563eb);
+        }
+    </style>
+</head>
+<body onload="initParkPage()">
+    <!-- 顶部导航栏 -->
+    <header class="header">
+        <div class="header-container">
+            <div class="logo">
+                <i class="fas fa-microchip"></i>
+                <span id="siteTitle">临港创新智算服务平台</span>
+            </div>
+            <nav class="nav" id="mainNav">
+                <a href="portal.html" class="nav-item" style="opacity:0.7"><i class="fas fa-th-large"></i> 切换园区</a>
+                <a href="index.html" class="nav-item">首页</a>
+                <a href="models.html" class="nav-item" data-feature="models">模型广场</a>
+                <a href="resources.html" class="nav-item" data-feature="resources">优惠资源</a>
+                <a href="agent.html" class="nav-item" data-feature="agent">智能助手</a>
+                <a href="innovation.html" class="nav-item" data-feature="innovation">创新世界</a>
+                <a href="activities.html" class="nav-item active" data-feature="activities">线下活动</a>
+                <a href="dashboard.html" class="nav-item">控制台</a>
+            </nav>
+            <div class="auth-buttons">
+                <button class="btn-secondary" onclick="showLoginModal()">登录</button>
+                <button class="btn-primary" onclick="showLoginModal()">注册</button>
+            </div>
+            <div class="user-info" id="userInfo" style="display: none;">
+                <div class="user-avatar">
+                    <i class="fas fa-user"></i>
+                </div>
+                <div class="user-name" id="userName">企业用户</div>
+                <div class="user-dropdown">
+                    <a href="dashboard.html"><i class="fas fa-user-circle"></i> 个人中心</a>
+                    <a href="dashboard.html"><i class="fas fa-file-invoice-dollar"></i> 账单中心</a>
+                    <a href="dashboard.html"><i class="fas fa-cog"></i> 平台管理</a>
+                    <a href="#" onclick="logout()"><i class="fas fa-sign-out-alt"></i> 退出登录</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <div class="container">
+            <h1 class="page-title">线下活动</h1>
+            <p class="page-subtitle">线上线下联动，促进园区企业资源对接与交流协作</p>
+
+            <div class="activity-list">
+                <div class="activity-card">
+                    <div class="activity-date">
+                        <div class="date-month">2月</div>
+                        <div class="date-day">20</div>
+                    </div>
+                    <div class="activity-content">
+                        <h4>AI算力应用技术沙龙</h4>
+                        <p class="activity-desc">邀请行业专家分享AI算力在各行业的应用实践案例，探讨算力赋能产业发展的新趋势</p>
+                        <div class="activity-meta">
+                            <span><i class="fas fa-clock"></i> 14:00-17:00</span>
+                            <span><i class="fas fa-map-marker-alt"></i> 临港魔方A栋会议室</span>
+                            <span><i class="fas fa-users"></i> 已报名 45人</span>
+                        </div>
+                    </div>
+                    <button class="btn btn-primary btn-small" onclick="signUpActivity('AI算力应用技术沙龙')">立即报名</button>
+                </div>
+
+                <div class="activity-card">
+                    <div class="activity-date">
+                        <div class="date-month">2月</div>
+                        <div class="date-day">28</div>
+                    </div>
+                    <div class="activity-content">
+                        <h4>初创企业项目路演</h4>
+                        <p class="activity-desc">为初创企业提供展示平台，对接投资机会和产业资源，助力创新项目快速成长</p>
+                        <div class="activity-meta">
+                            <span><i class="fas fa-clock"></i> 13:30-17:30</span>
+                            <span><i class="fas fa-map-marker-alt"></i> 临港创新中心</span>
+                            <span><i class="fas fa-users"></i> 已报名 32人</span>
+                        </div>
+                    </div>
+                    <button class="btn btn-primary btn-small" onclick="signUpActivity('初创企业项目路演')">立即报名</button>
+                </div>
+
+                <div class="activity-card">
+                    <div class="activity-date">
+                        <div class="date-month">3月</div>
+                        <div class="date-day">15</div>
+                    </div>
+                    <div class="activity-content">
+                        <h4>大模型开发实战训练营</h4>
+                        <p class="activity-desc">理论结合实践，深入了解大模型开发与部署的全流程，快速上手AI应用开发</p>
+                        <div class="activity-meta">
+                            <span><i class="fas fa-clock"></i> 09:00-17:00</span>
+                            <span><i class="fas fa-map-marker-alt"></i> 临港魔方培训中心</span>
+                            <span><i class="fas fa-users"></i> 已报名 28人</span>
+                        </div>
+                    </div>
+                    <button class="btn btn-primary btn-small" onclick="signUpActivity('大模型开发实战训练营')">立即报名</button>
+                </div>
+
+                <div class="activity-card">
+                    <div class="activity-date">
+                        <div class="date-month">3月</div>
+                        <div class="date-day">22</div>
+                    </div>
+                    <div class="activity-content">
+                        <h4>行业AI应用案例分享会</h4>
+                        <p class="activity-desc">邀请知名企业分享AI在实际业务场景中的应用案例，探讨AI落地的挑战与机遇</p>
+                        <div class="activity-meta">
+                            <span><i class="fas fa-clock"></i> 14:00-17:00</span>
+                            <span><i class="fas fa-map-marker-alt"></i> 临港创新中心</span>
+                            <span><i class="fas fa-users"></i> 已报名 52人</span>
+                        </div>
+                    </div>
+                    <button class="btn btn-primary btn-small" onclick="signUpActivity('行业AI应用案例分享会')">立即报名</button>
+                </div>
+
+                <div class="activity-card">
+                    <div class="activity-date">
+                        <div class="date-month">4月</div>
+                        <div class="date-day">05</div>
+                    </div>
+                    <div class="activity-content">
+                        <h4>投资人对接日活动</h4>
+                        <p class="activity-desc">邀请数十家知名投资机构，为园区企业搭建投融资对接桥梁</p>
+                        <div class="activity-meta">
+                            <span><i class="fas fa-clock"></i> 09:00-12:00</span>
+                            <span><i class="fas fa-map-marker-alt"></i> 临港创新中心</span>
+                            <span><i class="fas fa-users"></i> 已报名 18人</span>
+                        </div>
+                    </div>
+                    <button class="btn btn-primary btn-small" onclick="signUpActivity('投资人对接日活动')">立即报名</button>
+                </div>
+
+                <div class="activity-card">
+                    <div class="activity-date">
+                        <div class="date-month">4月</div>
+                        <div class="date-day">18</div>
+                    </div>
+                    <div class="activity-content">
+                        <h4>AIGC创新工坊</h4>
+                        <p class="activity-desc">从零开始学习使用AI生成内容工具，打造创意作品</p>
+                        <div class="activity-meta">
+                            <span><i class="fas fa-clock"></i> 14:00-18:00</span>
+                            <span><i class="fas fa-map-marker-alt"></i> 临港魔方A栋会议室</span>
+                            <span><i class="fas fa-users"></i> 已报名 40人</span>
+                        </div>
+                    </div>
+                    <button class="btn btn-primary btn-small" onclick="signUpActivity('AIGC创新工坊')">立即报名</button>
+                </div>
+            </div>
+
+            <div class="join-community">
+                <h3>加入我们的社群</h3>
+                <p>通过企业微信加入临港智算平台社群，获取最新活动信息和技术交流机会</p>
+                <button class="btn btn-primary" onclick="showCommunityModal()">
+                    <i class="fab fa-weixin"></i> 加入社群
+                </button>
+            </div>
+        </div>
+    </main>
+
+    <!-- 页脚 -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-bottom">
+                <p>&copy; 2024 临港创新智算服务平台 版权所有</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- 登录模态框 -->
+    <div class="modal" id="loginModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>登录</h3>
+                <button class="modal-close" onclick="closeModal('loginModal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="loginForm">
+                    <div class="form-group">
+                        <label>用户名/手机号</label>
+                        <input type="text" id="loginUsername" placeholder="请输入用户名或手机号">
+                    </div>
+                    <div class="form-group">
+                        <label>密码</label>
+                        <input type="password" id="loginPassword" placeholder="请输入密码">
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-block">登录</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- 悬浮聊天按钮 -->
+    <button class="chat-float-btn" id="chatFloatBtn" onclick="toggleChat()">
+        <i class="fas fa-comment-dots"></i>
+    </button>
+
+    <script src="script.js"></script>
+    <script>
+        function initParkPage() {
+            const park = initPark();
+            if (!park) return;
+            document.title = park.name + ' - 线下活动';
+            document.getElementById('siteTitle').textContent = park.name;
+            document.querySelectorAll('[data-feature]').forEach(item => {
+                const feature = item.getAttribute('data-feature');
+                if (park.features[feature] === false) item.style.display = 'none';
+            });
+        }
+    </script>
+</body>
+</html>

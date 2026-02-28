@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>创新世界 - 临港创新智算服务平台</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="config.js"></script>
+    <style>
+        :root {
+            --primary-color: #3b82f6;
+            --primary-dark: #2563eb;
+            --primary-gradient: linear-gradient(135deg, #3b82f6, #2563eb);
+        }
+    </style>
+</head>
+<body onload="initParkPage()">
+    <!-- 顶部导航栏 -->
+    <header class="header">
+        <div class="header-container">
+            <div class="logo">
+                <i class="fas fa-microchip"></i>
+                <span id="siteTitle">临港创新智算服务平台</span>
+            </div>
+            <nav class="nav" id="mainNav">
+                <a href="portal.html" class="nav-item" style="opacity:0.7"><i class="fas fa-th-large"></i> 切换园区</a>
+                <a href="index.html" class="nav-item">首页</a>
+                <a href="models.html" class="nav-item" data-feature="models">模型广场</a>
+                <a href="resources.html" class="nav-item" data-feature="resources">优惠资源</a>
+                <a href="agent.html" class="nav-item" data-feature="agent">智能助手</a>
+                <a href="innovation.html" class="nav-item active" data-feature="innovation">创新世界</a>
+                <a href="activities.html" class="nav-item" data-feature="activities">线下活动</a>
+                <a href="dashboard.html" class="nav-item">控制台</a>
+            </nav>
+            <div class="auth-buttons">
+                <button class="btn-secondary" onclick="showLoginModal()">登录</button>
+                <button class="btn-primary" onclick="showLoginModal()">注册</button>
+            </div>
+            <div class="user-info" id="userInfo" style="display: none;">
+                <div class="user-avatar">
+                    <i class="fas fa-user"></i>
+                </div>
+                <div class="user-name" id="userName">企业用户</div>
+                <div class="user-dropdown">
+                    <a href="dashboard.html"><i class="fas fa-user-circle"></i> 个人中心</a>
+                    <a href="dashboard.html"><i class="fas fa-file-invoice-dollar"></i> 账单中心</a>
+                    <a href="dashboard.html"><i class="fas fa-cog"></i> 平台管理</a>
+                    <a href="#" onclick="logout()"><i class="fas fa-sign-out-alt"></i> 退出登录</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <div class="container">
+            <h1 class="page-title">创新世界</h1>
+            <p class="page-subtitle">上传自研应用，获取积分回馈，构建开放共赢的应用生态</p>
+
+            <div class="innovation-features">
+                <div class="innovation-feature">
+                    <div class="innovation-number">1</div>
+                    <h3>上传应用</h3>
+                    <p>开发者可上传自研应用到平台，经过审核后发布供其他用户使用</p>
+                </div>
+                <div class="innovation-feature">
+                    <div class="innovation-number">2</div>
+                    <h3>积分回馈</h3>
+                    <p>应用被其他用户调用时，根据调用次数和使用时长自动返还积分</p>
+                </div>
+                <div class="innovation-feature">
+                    <div class="innovation-number">3</div>
+                    <h3>积分兑换</h3>
+                    <p>积分可兑换GPU卡时或tokens，满足不同场景的算力需求</p>
+                </div>
+            </div>
+
+            <div class="app-market">
+                <div class="app-market-header">
+                    <h3>热门应用</h3>
+                    <div class="app-filter">
+                        <button class="filter-btn active">全部</button>
+                        <button class="filter-btn">工具</button>
+                        <button class="filter-btn">AI应用</button>
+                        <button class="filter-btn">数据分析</button>
+                    </div>
+                </div>
+                <div class="app-list">
+                    <div class="app-card">
+                        <div class="app-icon">
+                            <i class="fas fa-briefcase"></i>
+                        </div>
+                        <div class="app-info">
+                            <h4>AI求职助手</h4>
+                            <p class="app-author">开发者：张工</p>
+                            <div class="app-stats">
+                                <span><i class="fas fa-download"></i> 1,234</span>
+                                <span><i class="fas fa-star"></i> 4.8</span>
+                            </div>
+                        </div>
+                        <button class="btn btn-small btn-secondary" onclick="useApp('AI求职助手')">使用</button>
+                    </div>
+
+                    <div class="app-card">
+                        <div class="app-icon">
+                            <i class="fas fa-file-alt"></i>
+                        </div>
+                        <div class="app-info">
+                            <h4>智能合同审查</h4>
+                            <p class="app-author">开发者：李律</p>
+                            <div class="app-stats">
+                                <span><i class="fas fa-download"></i> 890</span>
+                                <span><i class="fas fa-star"></i> 4.6</span>
+                            </div>
+                        </div>
+                        <button class="btn btn-small btn-secondary" onclick="useApp('智能合同审查')">使用</button>
+                    </div>
+
+                    <div class="app-card">
+                        <div class="app-icon">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <div class="app-info">
+                            <h4>数据可视化助手</h4>
+                            <p class="app-author">开发者：王数据</p>
+                            <div class="app-stats">
+                                <span><i class="fas fa-download"></i> 656</span>
+                                <span><i class="fas fa-star"></i> 4.5</span>
+                            </div>
+                        </div>
+                        <button class="btn btn-small btn-secondary" onclick="useApp('数据可视化助手')">使用</button>
+                    </div>
+
+                    <div class="app-card">
+                        <div class="app-icon">
+                            <i class="fas fa-language"></i>
+                        </div>
+                        <div class="app-info">
+                            <h4>多语言翻译</h4>
+                            <p class="app-author">开发者：ChenLab</p>
+                            <div class="app-stats">
+                                <span><i class="fas fa-download"></i> 2,156</span>
+                                <span><i class="fas fa-star"></i> 4.9</span>
+                            </div>
+                        </div>
+                        <button class="btn btn-small btn-secondary" onclick="useApp('多语言翻译')">使用</button>
+                    </div>
+
+                    <div class="app-card">
+                        <div class="app-icon">
+                            <i class="fas fa-robot"></i>
+                        </div>
+                        <div class="app-info">
+                            <h4>代码审查助手</h4>
+                            <p class="app-author">开发者：DevTeam</p>
+                            <div class="app-stats">
+                                <span><i class="fas fa-download"></i> 543</span>
+                                <span><i class="fas fa-star"></i> 4.7</span>
+                            </div>
+                        </div>
+                        <button class="btn btn-small btn-secondary" onclick="useApp('代码审查助手')">使用</button>
+                    </div>
+
+                    <div class="app-card">
+                        <div class="app-icon">
+                            <i class="fas fa-comments"></i>
+                        </div>
+                        <div class="app-info">
+                            <h4>客服机器人</h4>
+                            <p class="app-author">开发者：AIHub</p>
+                            <div class="app-stats">
+                                <span><i class="fas fa-download"></i> 1,098</span>
+                                <span><i class="fas fa-star"></i> 4.6</span>
+                            </div>
+                        </div>
+                        <button class="btn btn-small btn-secondary" onclick="useApp('客服机器人')">使用</button>
+                    </div>
+
+                    <div class="app-card">
+                        <div class="app-icon">
+                            <i class="fas fa-image"></i>
+                        </div>
+                        <div class="app-info">
+                            <h4>图片增强处理</h4>
+                            <p class="app-author">开发者：ImagePro</p>
+                            <div class="app-stats">
+                                <span><i class="fas fa-download"></i> 789</span>
+                                <span><i class="fas fa-star"></i> 4.4</span>
+                            </div>
+                        </div>
+                        <button class="btn btn-small btn-secondary" onclick="useApp('图片增强处理')">使用</button>
+                    </div>
+
+                    <div class="app-card">
+                        <div class="app-icon">
+                            <i class="fas fa-video"></i>
+                        </div>
+                        <div class="app-info">
+                            <h4>视频智能剪辑</h4>
+                            <p class="app-author">开发者：VideoAI</p>
+                            <div class="app-stats">
+                                <span><i class="fas fa-download"></i> 456</span>
+                                <span><i class="fas fa-star"></i> 4.5</span>
+                            </div>
+                        </div>
+                        <button class="btn btn-small btn-secondary" onclick="useApp('视频智能剪辑')">使用</button>
+                    </div>
+                </div>
+                <div class="app-upload-section">
+                    <button class="btn btn-primary" onclick="showUploadModal()">
+                        <i class="fas fa-plus"></i> 上传我的应用
+                    </button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- 页脚 -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-bottom">
+                <p>&copy; 2024 临港创新智算服务平台 版权所有</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- 上传应用模态框 -->
+    <div class="modal" id="uploadModal">
+        <div class="modal-content modal-large">
+            <div class="modal-header">
+                <h3>上传应用</h3>
+                <button class="modal-close" onclick="closeModal('uploadModal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="uploadForm">
+                    <div class="form-group">
+                        <label>应用名称</label>
+                        <input type="text" placeholder="请输入应用名称">
+                    </div>
+                    <div class="form-group">
+                        <label>应用描述</label>
+                        <textarea rows="4" placeholder="请简要描述应用功能和特点"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>应用类别</label>
+                        <select>
+                            <option value="">请选择应用类别</option>
+                            <option value="nlp">自然语言处理</option>
+                            <option value="cv">计算机视觉</option>
+                            <option value="data">数据分析</option>
+                            <option value="tool">工具</option>
+                            <option value="other">其他</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>应用图标</label>
+                        <input type="file" accept="image/*">
+                    </div>
+                    <div class="form-group">
+                        <label>积分回馈比例</label>
+                        <div class="range-slider">
+                            <input type="range" min="0" max="100" value="30" id="rewardRange">
+                            <span id="rewardValue">30%</span>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-block">提交审核</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- 登录模态框 -->
+    <div class="modal" id="loginModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>登录</h3>
+                <button class="modal-close" onclick="closeModal('loginModal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="loginForm">
+                    <div class="form-group">
+                        <label>用户名/手机号</label>
+                        <input type="text" id="loginUsername" placeholder="请输入用户名或手机号">
+                    </div>
+                    <div class="form-group">
+                        <label>密码</label>
+                        <input type="password" id="loginPassword" placeholder="请输入密码">
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-block">登录</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- 悬浮聊天按钮 -->
+    <button class="chat-float-btn" id="chatFloatBtn" onclick="toggleChat()">
+        <i class="fas fa-comment-dots"></i>
+    </button>
+
+    <script src="script.js"></script>
+    <script>
+        function initParkPage() {
+            const park = initPark();
+            if (!park) return;
+            document.title = park.name + ' - 创新世界';
+            document.getElementById('siteTitle').textContent = park.name;
+            document.querySelectorAll('[data-feature]').forEach(item => {
+                const feature = item.getAttribute('data-feature');
+                if (park.features[feature] === false) item.style.display = 'none';
+            });
+        }
+    </script>
+</body>
+</html>

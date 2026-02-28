@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>智能助手 - 临港创新智算服务平台</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="config.js"></script>
+    <style>
+        :root {
+            --primary-color: #3b82f6;
+            --primary-dark: #2563eb;
+            --primary-gradient: linear-gradient(135deg, #3b82f6, #2563eb);
+        }
+    </style>
+</head>
+<body onload="initParkPage()">
+    <!-- 顶部导航栏 -->
+    <header class="header">
+        <div class="header-container">
+            <div class="logo">
+                <i class="fas fa-microchip"></i>
+                <span id="siteTitle">临港创新智算服务平台</span>
+            </div>
+            <nav class="nav" id="mainNav">
+                <a href="portal.html" class="nav-item" style="opacity:0.7"><i class="fas fa-th-large"></i> 切换园区</a>
+                <a href="index.html" class="nav-item">首页</a>
+                <a href="models.html" class="nav-item" data-feature="models">模型广场</a>
+                <a href="resources.html" class="nav-item" data-feature="resources">优惠资源</a>
+                <a href="agent.html" class="nav-item active" data-feature="agent">智能助手</a>
+                <a href="innovation.html" class="nav-item" data-feature="innovation">创新世界</a>
+                <a href="activities.html" class="nav-item" data-feature="activities">线下活动</a>
+                <a href="dashboard.html" class="nav-item">控制台</a>
+            </nav>
+            <div class="auth-buttons">
+                <button class="btn-secondary" onclick="showLoginModal()">登录</button>
+                <button class="btn-primary" onclick="showLoginModal()">注册</button>
+            </div>
+            <div class="user-info" id="userInfo" style="display: none;">
+                <div class="user-avatar">
+                    <i class="fas fa-user"></i>
+                </div>
+                <div class="user-name" id="userName">企业用户</div>
+                <div class="user-dropdown">
+                    <a href="dashboard.html"><i class="fas fa-user-circle"></i> 个人中心</a>
+                    <a href="dashboard.html"><i class="fas fa-file-invoice-dollar"></i> 账单中心</a>
+                    <a href="dashboard.html"><i class="fas fa-cog"></i> 平台管理</a>
+                    <a href="#" onclick="logout()"><i class="fas fa-sign-out-alt"></i> 退出登录</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <div class="container">
+            <h1 class="page-title">智能助手</h1>
+            <p class="page-subtitle">企业服务智能矩阵，24小时在线，快速响应您的需求</p>
+
+            <div class="agent-container">
+                <div class="agent-card policy">
+                    <div class="agent-icon">
+                        <i class="fas fa-landmark"></i>
+                    </div>
+                    <h3>政策问答助手</h3>
+                    <p>实时解读临港及国家相关补贴政策信息，帮助您快速了解和申请各类政策支持</p>
+                    <ul class="agent-features">
+                        <li><i class="fas fa-check"></i> 政策解读</li>
+                        <li><i class="fas fa-check"></i> 补贴申请指导</li>
+                        <li><i class="fas fa-check"></i> 政策匹配分析</li>
+                    </ul>
+                    <button class="btn btn-primary" onclick="startAgentChat('policy')">开始咨询</button>
+                </div>
+
+                <div class="agent-card technique">
+                    <div class="agent-icon">
+                        <i class="fas fa-code"></i>
+                    </div>
+                    <h3>应用技巧助手</h3>
+                    <p>提供AI技术服务指导，帮助您更好地使用平台提供的各类算力和模型资源</p>
+                    <ul class="agent-features">
+                        <li><i class="fas fa-check"></i> API使用指导</li>
+                        <li><i class="fas fa-check"></i> 模型调优建议</li>
+                        <li><i class="fas fa-check"></i> 常见问题解答</li>
+                    </ul>
+                    <button class="btn btn-primary" onclick="startAgentChat('technique')">开始咨询</button>
+                </div>
+
+                <div class="agent-card business">
+                    <div class="agent-icon">
+                        <i class="fas fa-headset"></i>
+                    </div>
+                    <h3>业务咨询助手</h3>
+                    <p>助力企业快速上手平台功能，提供从注册到使用的全流程咨询服务</p>
+                    <ul class="agent-features">
+                        <li><i class="fas fa-check"></i> 账户设置指导</li>
+                        <li><i class="fas fa-check"></i> 资源配置建议</li>
+                        <li><i class="fas fa-check"></i> 账单问题处理</li>
+                    </ul>
+                    <button class="btn btn-primary" onclick="startAgentChat('business')">开始咨询</button>
+                </div>
+            </div>
+
+            <!-- 常见问题区域 -->
+            <div class="faq-section">
+                <h2>常见问题</h2>
+                <div class="faq-list">
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <i class="fas fa-question-circle"></i>
+                            如何申请政府补贴？
+                        </div>
+                        <div class="faq-answer">
+                            企业使用平台算力资源后，系统会自动记录使用数据和产生账单。每季度末，企业可向园区主账户提交补贴申请，园区汇总后向管委会申报，审核通过后补贴资金将发放到企业账户。企业最高可获得50%的补贴比例。
+                        </div>
+                    </div>
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <i class="fas fa-question-circle"></i>
+                            模型API如何调用？
+                        </div>
+                        <div class="faq-answer">
+                            首先，您需要登录控制台获取API密钥。然后在代码中导入对应的SDK，设置请求参数（包括模型名称、输入内容等），最后调用API接口获取返回结果。详细的开发文档请参考"开发者中心"。
+                        </div>
+                    </div>
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <i class="fas fa-question-circle"></i>
+                            如何兑换积分？
+                        </div>
+                        <div class="faq-answer">
+                            积分可以通过上传应用程序并让其他用户使用来获得。获得积分后，您可以在控制台的"积分兑换"页面，选择将积分兑换为GPU卡时或tokens，兑换比例根据当前资源定价动态调整。
+                        </div>
+                    </div>
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <i class="fas fa-question-circle"></i>
+                            支持哪些支付方式？
+                        </div>
+                        <div class="faq-answer">
+                            平台支持在线支付（支付宝、微信支付）、企业对公转账多种支付方式。企业用户还可以申请月结服务，具体需要联系商务洽谈开通。
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- 页脚 -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-bottom">
+                <p>&copy; 2024 临港创新智算服务平台 版权所有</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- 智能助手聊天窗口 -->
+    <div class="chat-widget" id="chatWidget">
+        <div class="chat-header">
+            <div class="chat-title">
+                <i class="fas fa-robot"></i>
+                <span id="chatAgentName">智能助手</span>
+            </div>
+            <button class="chat-close" onclick="closeChat()">&times;</button>
+        </div>
+        <div class="chat-messages" id="chatMessages">
+            <div class="chat-message agent">
+                <div class="message-avatar">
+                    <i class="fas fa-robot"></i>
+                </div>
+                <div class="message-content">
+                    <p>您好！我是智能助手。请问有什么可以帮助您的？</p>
+                </div>
+            </div>
+        </div>
+        <div class="chat-input-area">
+            <input type="text" id="chatInput" placeholder="请输入您的问题..." onkeypress="handleChatKeypress(event)">
+            <button class="chat-send" onclick="sendMessage()">
+                <i class="fas fa-paper-plane"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- 登录模态框 -->
+    <div class="modal" id="loginModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>登录</h3>
+                <button class="modal-close" onclick="closeModal('loginModal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="loginForm">
+                    <div class="form-group">
+                        <label>用户名/手机号</label>
+                        <input type="text" id="loginUsername" placeholder="请输入用户名或手机号">
+                    </div>
+                    <div class="form-group">
+                        <label>密码</label>
+                        <input type="password" id="loginPassword" placeholder="请输入密码">
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-block">登录</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+        function initParkPage() {
+            const park = initPark();
+            if (!park) return;
+            document.title = park.name + ' - 智能助手';
+            document.getElementById('siteTitle').textContent = park.name;
+            document.querySelectorAll('[data-feature]').forEach(item => {
+                const feature = item.getAttribute('data-feature');
+                if (park.features[feature] === false) item.style.display = 'none';
+            });
+        }
+    </script>
+</body>
+</html>

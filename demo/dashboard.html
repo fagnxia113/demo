@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>控制台 - 临港创新智算服务平台</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="config.js"></script>
+    <style>
+        :root {
+            --primary-color: #3b82f6;
+            --primary-dark: #2563eb;
+            --primary-gradient: linear-gradient(135deg, #3b82f6, #2563eb);
+        }
+    </style>
+</head>
+<body onload="initParkPage()">
+    <!-- 顶部导航栏 -->
+    <header class="header">
+        <div class="header-container">
+            <div class="logo">
+                <i class="fas fa-microchip"></i>
+                <span id="siteTitle">临港创新智算服务平台</span>
+            </div>
+            <nav class="nav" id="mainNav">
+                <a href="portal.html" class="nav-item" style="opacity:0.7"><i class="fas fa-th-large"></i> 切换园区</a>
+                <a href="index.html" class="nav-item">首页</a>
+                <a href="models.html" class="nav-item" data-feature="models">模型广场</a>
+                <a href="resources.html" class="nav-item" data-feature="resources">优惠资源</a>
+                <a href="agent.html" class="nav-item" data-feature="agent">智能助手</a>
+                <a href="innovation.html" class="nav-item" data-feature="innovation">创新世界</a>
+                <a href="activities.html" class="nav-item" data-feature="activities">线下活动</a>
+                <a href="dashboard.html" class="nav-item active">控制台</a>
+            </nav>
+            <div class="auth-buttons">
+                <button class="btn-secondary" onclick="showLoginModal()">登录</button>
+                <button class="btn-primary" onclick="showLoginModal()">注册</button>
+            </div>
+            <div class="user-info" id="userInfo">
+                <div class="user-avatar">
+                    <i class="fas fa-user"></i>
+                </div>
+                <div class="user-name" id="userName">企业用户</div>
+                <div class="user-dropdown">
+                    <a href="dashboard.html"><i class="fas fa-user-circle"></i> 个人中心</a>
+                    <a href="dashboard.html"><i class="fas fa-file-invoice-dollar"></i> 账单中心</a>
+                    <a href="dashboard.html"><i class="fas fa-cog"></i> 平台管理</a>
+                    <a href="#" onclick="logout()"><i class="fas fa-sign-out-alt"></i> 退出登录</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="main-content" style="background: var(--bg-light);">
+        <div class="container">
+            <h1 class="page-title">控制台</h1>
+            <p class="page-subtitle">资源使用情况一目了然，实时掌握您的算力资产</p>
+
+            <div class="dashboard-grid">
+                <!-- 资源概览 -->
+                <div class="dashboard-card overview">
+                    <h3><i class="fas fa-chart-pie"></i> 资源概览</h3>
+                    <div class="overview-stats">
+                        <div class="overview-item">
+                            <div class="overview-label">Tokens余额</div>
+                            <div class="overview-value">1,000,000</div>
+                        </div>
+                        <div class="overview-item">
+                            <div class="overview-label">GPU卡时余额</div>
+                            <div class="overview-value">120 小时</div>
+                        </div>
+                        <div class="overview-item">
+                            <div class="overview-label">积分余额</div>
+                            <div class="overview-value">5,000 分</div>
+                        </div>
+                        <div class="overview-item">
+                            <div class="overview-label">本月支出</div>
+                            <div class="overview-value">¥2,580</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 使用趋势 -->
+                <div class="dashboard-card usage-trend">
+                    <h3><i class="fas fa-chart-line"></i> 使用趋势</h3>
+                    <div class="usage-chart">
+                        <div class="chart-placeholder">
+                            <i class="fas fa-chart-area"></i>
+                            <p>近7天资源使用曲线</p>
+                            <small>（Demo演示占位符）</small>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 近期账单 -->
+                <div class="dashboard-card recent-bills">
+                    <h3><i class="fas fa-file-invoice"></i> 近期账单</h3>
+                    <div class="bill-list">
+                        <div class="bill-item">
+                            <div class="bill-info">
+                                <div class="bill-title">模型调用 - GLM-4</div>
+                                <div class="bill-time">2024-02-12 14:30</div>
+                            </div>
+                            <div class="bill-amount">-¥28.50</div>
+                        </div>
+                        <div class="bill-item">
+                            <div class="bill-info">
+                                <div class="bill-title">GPU算力 - 8C 16G 1卡</div>
+                                <div class="bill-time">2024-02-12 10:00</div>
+                            </div>
+                            <div class="bill-amount">-¥45.60</div>
+                        </div>
+                        <div class="bill-item subsidy">
+                            <div class="bill-info">
+                                <div class="bill-title">政府补贴返还 - 1月</div>
+                                <div class="bill-time">2024-02-11 09:00</div>
+                            </div>
+                            <div class="bill-amount">+¥37.05</div>
+                        </div>
+                        <div class="bill-item point">
+                            <div class="bill-info">
+                                <div class="bill-title">积分兑换 - AI求职助手</div>
+                                <div class="bill-time">2024-02-10 16:45</div>
+                            </div>
+                            <div class="bill-amount">-200 分</div>
+                        </div>
+                        <div class="bill-item">
+                            <div class="bill-info">
+                                <div class="bill-title">模型调用 - Qwen2.5</div>
+                                <div class="bill-time">2024-02-09 11:20</div>
+                            </div>
+                            <div class="bill-amount">-¥15.30</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 快捷操作 -->
+                <div class="dashboard-card quick-actions">
+                    <h3><i class="fas fa-bolt"></i> 快捷操作</h3>
+                    <div class="quick-links">
+                        <button class="quick-link-btn" onclick="window.location.href='models.html'">
+                            <i class="fas fa-cubes"></i>
+                            <span>模型广场</span>
+                        </button>
+                        <button class="quick-link-btn" onclick="window.location.href='resources.html'">
+                            <i class="fas fa-server"></i>
+                            <span>资源预订</span>
+                        </button>
+                        <button class="quick-link-btn" onclick="showNotification('积分兑换功能即将上线')">
+                            <i class="fas fa-coins"></i>
+                            <span>积分兑换</span>
+                        </button>
+                        <button class="quick-link-btn" onclick="showNotification('账单导出成功')">
+                            <i class="fas fa-file-alt"></i>
+                            <span>账单导出</span>
+                        </button>
+                        <button class="quick-link-btn" onclick="showLoginModal()">
+                            <i class="fas fa-plus-circle"></i>
+                            <span>充值</span>
+                        </button>
+                        <button class="quick-link-btn" onclick="showLoginModal()">
+                            <i class="fas fa-hand-holding-usd"></i>
+                            <span>补贴申请</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 企业信息 -->
+            <div class="company-info">
+                <h3><i class="fas fa-building"></i> 企业信息</h3>
+                <div class="info-grid">
+                    <div class="info-item">
+                        <label>企业名称</label>
+                        <span>XX科技有限公司</span>
+                    </div>
+                    <div class="info-item">
+                        <label>所属园区</label>
+                        <span>临港魔方</span>
+                    </div>
+                    <div class="info-item">
+                        <label>联系人</label>
+                        <span>张三</span>
+                    </div>
+                    <div class="info-item">
+                        <label>联系电话</label>
+                        <span>138****8888</span>
+                    </div>
+                    <div class="info-item">
+                        <label>注册时间</label>
+                        <span>2023-12-01</span>
+                    </div>
+                    <div class="info-item">
+                        <label>账户状态</label>
+                        <span class="status-active">正常</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- 页脚 -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-bottom">
+                <p>&copy; 2024 临港创新智算服务平台 版权所有</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- 登录模态框 -->
+    <div class="modal" id="loginModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>登录</h3>
+                <button class="modal-close" onclick="closeModal('loginModal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="loginForm">
+                    <div class="form-group">
+                        <label>用户名/手机号</label>
+                        <input type="text" id="loginUsername" placeholder="请输入用户名或手机号">
+                    </div>
+                    <div class="form-group">
+                        <label>密码</label>
+                        <input type="password" id="loginPassword" placeholder="请输入密码">
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-block">登录</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- 智能助手聊天窗口 -->
+    <div class="chat-widget" id="chatWidget">
+        <div class="chat-header">
+            <div class="chat-title">
+                <i class="fas fa-robot"></i>
+                <span id="chatAgentName">智能助手</span>
+            </div>
+            <button class="chat-close" onclick="closeChat()">&times;</button>
+        </div>
+        <div class="chat-messages" id="chatMessages">
+            <div class="chat-message agent">
+                <div class="message-avatar">
+                    <i class="fas fa-robot"></i>
+                </div>
+                <div class="message-content">
+                    <p>您好！我是智能助手。请问有什么可以帮助您的？</p>
+                </div>
+            </div>
+        </div>
+        <div class="chat-input-area">
+            <input type="text" id="chatInput" placeholder="请输入您的问题..." onkeypress="handleChatKeypress(event)">
+            <button class="chat-send" onclick="sendMessage()">
+                <i class="fas fa-paper-plane"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- 悬浮聊天按钮 -->
+    <button class="chat-float-btn" id="chatFloatBtn" onclick="toggleChat()">
+        <i class="fas fa-comment-dots"></i>
+    </button>
+
+    <script src="script.js"></script>
+    <script>
+        function initParkPage() {
+            const park = initPark();
+            if (!park) return;
+            document.title = park.name + ' - 控制台';
+            document.getElementById('siteTitle').textContent = park.name;
+            document.querySelectorAll('[data-feature]').forEach(item => {
+                const feature = item.getAttribute('data-feature');
+                if (park.features[feature] === false) item.style.display = 'none';
+            });
+        }
+    </script>
+</body>
+</html>

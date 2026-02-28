@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>优惠资源 - 临港创新智算服务平台</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="config.js"></script>
+    <style>
+        :root {
+            --primary-color: #3b82f6;
+            --primary-dark: #2563eb;
+            --primary-gradient: linear-gradient(135deg, #3b82f6, #2563eb);
+        }
+    </style>
+</head>
+<body onload="initParkPage()">
+    <!-- 顶部导航栏 -->
+    <header class="header">
+        <div class="header-container">
+            <div class="logo">
+                <i class="fas fa-microchip"></i>
+                <span id="siteTitle">临港创新智算服务平台</span>
+            </div>
+            <nav class="nav" id="mainNav">
+                <a href="portal.html" class="nav-item" style="opacity:0.7"><i class="fas fa-th-large"></i> 切换园区</a>
+                <a href="index.html" class="nav-item">首页</a>
+                <a href="models.html" class="nav-item" data-feature="models">模型广场</a>
+                <a href="resources.html" class="nav-item active" data-feature="resources">优惠资源</a>
+                <a href="agent.html" class="nav-item" data-feature="agent">智能助手</a>
+                <a href="innovation.html" class="nav-item" data-feature="innovation">创新世界</a>
+                <a href="activities.html" class="nav-item" data-feature="activities">线下活动</a>
+                <a href="dashboard.html" class="nav-item">控制台</a>
+            </nav>
+            <div class="auth-buttons">
+                <button class="btn-secondary" onclick="showLoginModal()">登录</button>
+                <button class="btn-primary" onclick="showLoginModal()">注册</button>
+            </div>
+            <div class="user-info" id="userInfo" style="display: none;">
+                <div class="user-avatar">
+                    <i class="fas fa-user"></i>
+                </div>
+                <div class="user-name" id="userName">企业用户</div>
+                <div class="user-dropdown">
+                    <a href="dashboard.html"><i class="fas fa-user-circle"></i> 个人中心</a>
+                    <a href="dashboard.html"><i class="fas fa-file-invoice-dollar"></i> 账单中心</a>
+                    <a href="dashboard.html"><i class="fas fa-cog"></i> 平台管理</a>
+                    <a href="#" onclick="logout()"><i class="fas fa-sign-out-alt"></i> 退出登录</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <div class="container">
+            <h1 class="page-title">优惠资源池</h1>
+            <p class="page-subtitle">按卡时计费的弹性算力服务，批量采购优势惠及园区企业</p>
+
+            <div class="resource-type-switch">
+                <button class="resource-btn active" data-type="experience">限时体验</button>
+                <button class="resource-btn" data-type="single">单卡服务</button>
+                <button class="resource-btn" data-type="multi">多卡服务</button>
+            </div>
+
+            <!-- 限时体验区 -->
+            <div class="resource-content active" id="resources-experience">
+                <h3 class="resource-section-title">限时体验区（最新模型）</h3>
+                <div class="resource-cards">
+                    <div class="resource-card recommend">
+                        <div class="resource-badge">高性价比</div>
+                        <div class="resource-header">
+                            <h3>高性价比</h3>
+                            <span class="resource-price">¥1.35<span class="unit">/卡时</span></span>
+                        </div>
+                        <div class="resource-specs">
+                            <div class="spec-row">
+                                <span>CPU</span>
+                                <span>8核</span>
+                            </div>
+                            <div class="spec-row">
+                                <span>内存</span>
+                                <span>16G</span>
+                            </div>
+                            <div class="spec-row">
+                                <span>显存</span>
+                                <span>24G</span>
+                            </div>
+                            <div class="spec-row">
+                                <span>储存</span>
+                                <span>20G</span>
+                            </div>
+                            <div class="spec-row highlight">
+                                <span>算力</span>
+                                <span>71 TFlops</span>
+                            </div>
+                        </div>
+                        <button class="btn btn-primary btn-block" onclick="orderResource('高性价比')">立即预订</button>
+                    </div>
+
+                    <div class="resource-card">
+                        <div class="resource-badge">入门首选</div>
+                        <div class="resource-header">
+                            <h3>入门首选</h3>
+                            <span class="resource-price">¥0.90<span class="unit">/卡时</span></span>
+                        </div>
+                        <div class="resource-specs">
+                            <div class="spec-row">
+                                <span>CPU</span>
+                                <span>8核</span>
+                            </div>
+                            <div class="spec-row">
+                                <span>内存</span>
+                                <span>16G</span>
+                            </div>
+                            <div class="spec-row">
+                                <span>显存</span>
+                                <span>12G</span>
+                            </div>
+                            <div class="spec-row">
+                                <span>存储</span>
+                                <span>20G</span>
+                            </div>
+                            <div class="spec-row highlight">
+                                <span>算力</span>
+                                <span>24 TFlops</span>
+                            </div>
+                        </div>
+                        <button class="btn btn-secondary btn-block" onclick="orderResource('入门首选')">立即预订</button>
+                    </div>
+
+                    <div class="resource-card">
+                        <div class="resource-badge">高性能</div>
+                        <div class="resource-header">
+                            <h3>高性能</h3>
+                            <span class="resource-price">¥2.70<span class="unit">/卡时</span></span>
+                        </div>
+                        <div class="resource-specs">
+                            <div class="spec-row">
+                                <span>CPU</span>
+                                <span>8核</span>
+                            </div>
+                            <div class="spec-row">
+                                <span>内存</span>
+                                <span>16G</span>
+                            </div>
+                            <div class="spec-row">
+                                <span>显存</span>
+                                <span>24G</span>
+                            </div>
+                            <div class="spec-row">
+                                <span>存储</span>
+                                <span>20G</span>
+                            </div>
+                            <div class="spec-row highlight">
+                                <span>算力</span>
+                                <span>165 TFlops</span>
+                            </div>
+                        </div>
+                        <button class="btn btn-secondary btn-block" onclick="orderResource('高性能')">立即预订</button>
+                    </div>
+
+                    <div class="resource-card">
+                        <div class="resource-badge">超高性能</div>
+                        <div class="resource-header">
+                            <h3>超高性能</h3>
+                            <span class="resource-price">¥13.6<span class="unit">/卡时</span></span>
+                        </div>
+                        <div class="resource-specs">
+                            <div class="spec-row">
+                                <span>CPU</span>
+                                <span>22核</span>
+                            </div>
+                            <div class="spec-row">
+                                <span>内存</span>
+                                <span>184G</span>
+                            </div>
+                            <div class="spec-row">
+                                <span>显存</span>
+                                <span>64G</span>
+                            </div>
+                            <div class="spec-row">
+                                <span>存储</span>
+                                <span>20G</span>
+                            </div>
+                            <div class="spec-row highlight">
+                                <span>算力</span>
+                                <span>313 TFlops</span>
+                            </div>
+                        </div>
+                        <button class="btn btn-secondary btn-block" onclick="orderResource('超高性能')">立即预订</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 单卡服务 -->
+            <div class="resource-content" id="resources-single">
+                <h3 class="resource-section-title">智算单卡服务</h3>
+                <div class="pricing-table">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>规格</th>
+                                <th>单卡算力</th>
+                                <th>单卡显存</th>
+                                <th>价格</th>
+                                <th>操作</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>8C 16G 1卡</td>
+                                <td>24 TFlops</td>
+                                <td>12G</td>
+                                <td class="price">¥2.81<span class="unit">/小时</span></td>
+                                <td><button class="btn btn-small btn-primary" onclick="orderResource('8C 16G 1卡')">预订</button></td>
+                            </tr>
+                            <tr class="highlight">
+                                <td>8C 16G 1卡</td>
+                                <td>71 TFlops</td>
+                                <td>24G</td>
+                                <td class="price">¥4.08<span class="unit">/小时</span></td>
+                                <td><button class="btn btn-small btn-primary" onclick="orderResource('8C 16G 1卡-中配')">预订</button></td>
+                            </tr>
+                            <tr>
+                                <td>8C 16G 1卡</td>
+                                <td>165 TFlops</td>
+                                <td>24G</td>
+                                <td class="price">¥4.63<span class="unit">/小时</span></td>
+                                <td><button class="btn btn-small btn-primary" onclick="orderResource('8C 16G 1卡-高配')">预订</button></td>
+                            </tr>
+                            <tr>
+                                <td>22C 184G 1卡</td>
+                                <td>313 TFlops</td>
+                                <td>64G</td>
+                                <td class="price">¥27.12<span class="unit">/小时</span></td>
+                                <td><button class="btn btn-small btn-primary" onclick="orderResource('22C 184G 1卡')">预订</button></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- 多卡服务 -->
+            <div class="resource-content" id="resources-multi">
+                <h3 class="resource-section-title">智算多卡服务</h3>
+                <div class="pricing-table">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>规格</th>
+                                <th>单卡算力</th>
+                                <th>单卡显存</th>
+                                <th>价格</th>
+                                <th>操作</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>44C 368G 2卡</td>
+                                <td>313 TFlops</td>
+                                <td>64G</td>
+                                <td class="price">¥54.24<span class="unit">/小时</span></td>
+                                <td><button class="btn btn-small btn-primary" onclick="orderResource('44C 368G 2卡')">预订</button></td>
+                            </tr>
+                            <tr>
+                                <td>88C 736G 4卡</td>
+                                <td>313 TFlops</td>
+                                <td>64G</td>
+                                <td class="price">¥108.48<span class="unit">/小时</span></td>
+                                <td><button class="btn btn-small btn-primary" onclick="orderResource('88C 736G 4卡')">预订</button></td>
+                            </tr>
+                            <tr>
+                                <td>176C 1472G 8卡</td>
+                                <td>313 TFlops</td>
+                                <td>64G</td>
+                                <td class="price">¥216.96<span class="unit">/小时</span></td>
+                                <td><button class="btn btn-small btn-primary" onclick="orderResource('176C 1472G 8卡')">预订</button></td>
+                            </tr>
+                            <tr>
+                                <td>352C 2944G 16卡</td>
+                                <td>313 TFlops</td>
+                                <td>64G</td>
+                                <td class="price">¥433.92<span class="unit">/小时</span></td>
+                                <td><button class="btn btn-small btn-primary" onclick="orderResource('352C 2944G 16卡')">预订</button></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- 页脚 -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-bottom">
+                <p>&copy; 2024 临港创新智算服务平台 版权所有</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- 登录模态框 -->
+    <div class="modal" id="loginModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>登录</h3>
+                <button class="modal-close" onclick="closeModal('loginModal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="loginForm">
+                    <div class="form-group">
+                        <label>用户名/手机号</label>
+                        <input type="text" id="loginUsername" placeholder="请输入用户名或手机号">
+                    </div>
+                    <div class="form-group">
+                        <label>密码</label>
+                        <input type="password" id="loginPassword" placeholder="请输入密码">
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-block">登录</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- 悬浮聊天按钮 -->
+    <button class="chat-float-btn" id="chatFloatBtn" onclick="toggleChat()">
+        <i class="fas fa-comment-dots"></i>
+    </button>
+
+    <script src="script.js"></script>
+    <script>
+        function initParkPage() {
+            const park = initPark();
+            if (!park) return;
+            document.title = park.name + ' - 优惠资源';
+            document.getElementById('siteTitle').textContent = park.name;
+            document.querySelectorAll('[data-feature]').forEach(item => {
+                const feature = item.getAttribute('data-feature');
+                if (park.features[feature] === false) item.style.display = 'none';
+            });
+        }
+    </script>
+</body>
+</html>
