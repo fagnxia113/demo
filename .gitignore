@@ -19,3 +19,8 @@ Thumbs.db
 
 # Logs
 *.log
+
+# Ignore all markdown files except in demo folder
+*.md
+!demo/*.md
+!demo/**/*.md

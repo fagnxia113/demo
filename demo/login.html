@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>登录 - 临港创新智算服务平台</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body style="margin:0; padding:0; font-family: sans-serif; background: #0a0e17; min-height: 100vh; display: flex; align-items: center; justify-content: center; color: #fff;">
+    <!-- 背景 -->
+    <div style="position: fixed; top:0; left:0; width:100%; height:100%; background: linear-gradient(180deg, #0a0e17 0%, #0f172a 50%, #0a0e17 100%); z-index: -1;"></div>
+
+    <!-- 登录卡片 -->
+    <div style="background: rgba(15, 23, 42, 0.9); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 24px; padding: 60px; max-width: 500px; width: 90%; position: relative; z-index: 10;">
+        <!-- Logo -->
+        <div style="text-align: center; margin-bottom: 40px;">
+            <div style="width: 80px; height: 80px; margin: 0 auto 20px; background: linear-gradient(135deg, #00d4ff, #7c3aed); border-radius: 20px; display: flex; align-items: center; justify-content: center; font-size: 36px; color: #fff;">
+                <i class="fas fa-microchip"></i>
+            </div>
+            <h1 style="font-size: 28px; font-weight: 700; margin: 0 0 8px 0; background: linear-gradient(135deg, #fff 0%, #00d4ff 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">临港创新智算服务平台</h1>
+            <p style="font-size: 14px; color: rgba(255, 255, 255, 0.5); margin: 0;">LINGANG INTELLIGENT COMPUTING PLATFORM</p>
+        </div>
+
+        <!-- 错误提示 -->
+        <div id="errorMessage" style="display: none; margin-bottom: 20px; padding: 12px 16px; background: rgba(239, 68, 68, 0.2); border: 1px solid rgba(239, 68, 68, 0.4); border-radius: 10px; color: #ef5350; font-size: 14px;"></div>
+
+        <!-- 登录表单 -->
+        <form id="loginForm">
+            <div style="margin-bottom: 20px;">
+                <label style="display: block; font-size: 14px; color: rgba(255, 255, 255, 0.7); margin-bottom: 8px;">用户名</label>
+                <input type="text" id="loginUsername" style="width: 100%; padding: 14px 16px; background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 12px; color: #fff; font-size: 15px; box-sizing: border-box;" placeholder="请输入用户名">
+            </div>
+            <div style="margin-bottom: 24px;">
+                <label style="display: block; font-size: 14px; color: rgba(255, 255, 255, 0.7); margin-bottom: 8px;">密码</label>
+                <input type="password" id="loginPassword" style="width: 100%; padding: 14px 16px; background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 12px; color: #fff; font-size: 15px; box-sizing: border-box;" placeholder="请输入密码">
+            </div>
+            <button type="submit" style="width: 100%; padding: 16px; background: linear-gradient(135deg, #00d4ff, #7c3aed); border: none; border-radius: 12px; color: #fff; font-size: 16px; font-weight: 600; cursor: pointer;">登 录</button>
+        </form>
+
+        <!-- 演示账户 -->
+        <div style="margin-top: 30px;">
+            <p style="font-size: 13px; color: rgba(255, 255, 255, 0.5); margin: 0 0 15px 0;">点击下方快速填充演示账户：</p>
+            <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px;">
+                <button class="demo-btn" data-user="keji_demo" data-pass="demo123" style="padding: 10px; background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 8px; font-size: 12px; color: #fff; cursor: pointer; width: 100%;">
+                    keji_demo / demo123
+                </button>
+                <button class="demo-btn" data-user="yingshi_demo" data-pass="demo123" style="padding: 10px; background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 8px; font-size: 12px; color: #fff; cursor: pointer; width: 100%;">
+                    yingshi_demo / demo123
+                </button>
+                <button class="demo-btn" data-user="lingangmofang_demo" data-pass="demo123" style="padding: 10px; background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 8px; font-size: 12px; color: #fff; cursor: pointer; width: 100%;">
+                    lingangmofang_demo / demo123
+                </button>
+                <button class="demo-btn" data-user="aiinnovation_demo" data-pass="demo123" style="padding: 10px; background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 8px; font-size: 12px; color: #fff; cursor: pointer; width: 100%;">
+                    aiinnovation_demo / demo123
+                </button>
+                <button class="demo-btn" data-user="icinnovation_demo" data-pass="demo123" style="padding: 10px; background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 8px; font-size: 12px; color: #fff; cursor: pointer; width: 100%;">
+                    icinnovation_demo / demo123
+                </button>
+                <button class="demo-btn" data-user="dataharbor_demo" data-pass="demo123" style="padding: 10px; background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 8px; font-size: 12px; color: #fff; cursor: pointer; width: 100%;">
+                    dataharbor_demo / demo123
+                </button>
+                <button class="demo-btn" data-user="financialbay_demo" data-pass="demo123" style="padding: 10px; background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 8px; font-size: 12px; color: #fff; cursor: pointer; width: 100%;">
+                    financialbay_demo / demo123
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 版权信息 -->
+    <div style="position: absolute; bottom: 30px; text-align: center; color: rgba(255, 255, 255, 0.3); font-size: 12px;">
+        &copy; 2024 临港创新智算服务平台 版权所有
+    </div>
+
+    <!-- 加载脚本 -->
+    <script src="config.js"></script>
+    <script src="auth.js"></script>
+    <script>
+        // 显示错误
+        function showError(msg) {
+            const el = document.getElementById('errorMessage');
+            el.textContent = msg;
+            el.style.display = 'block';
+        }
+
+        function hideError() {
+            document.getElementById('errorMessage').style.display = 'none';
+        }
+
+        // 处理演示账户点击
+        document.querySelectorAll('.demo-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const username = this.getAttribute('data-user');
+                const password = this.getAttribute('data-pass');
+                if (username && password) {
+                    document.getElementById('loginUsername').value = username;
+                    document.getElementById('loginPassword').value = password;
+                    hideError();
+                }
+            });
+        });
+
+        // 登录表单提交
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const username = document.getElementById('loginUsername').value.trim();
+            const password = document.getElementById('loginPassword').value;
+
+            if (!username || !password) {
+                showError('请输入用户名和密码');
+                return;
+            }
+
+            if (typeof USER_ACCOUNTS !== 'object') {
+                showError('系统加载中，请稍后重试');
+                return;
+            }
+
+            const user = Object.values(USER_ACCOUNTS).find(
+                u => u.username === username && u.password === password
+            );
+
+            if (!user) {
+                showError('用户名或密码错误');
+                return;
+            }
+
+            // 登录成功
+            if (typeof setCurrentUser === 'function') {
+                setCurrentUser(user);
+                window.location.href = 'home.html?park=' + user.parkId;
+            } else {
+                showError('系统错误');
+            }
+        });
+
+        // 演示账户按钮悬停效果
+        document.querySelectorAll('.demo-btn').forEach(btn => {
+            btn.onmouseover = function() { this.style.background = 'rgba(255, 255, 255, 0.1)'; this.style.borderColor = '#00d4ff'; };
+            btn.onmouseout = function() { this.style.background = 'rgba(255, 255, 255, 0.05)'; this.style.borderColor = 'rgba(255, 255, 255, 0.1)'; };
+        });
+
+        // 登录按钮悬停效果
+        document.querySelector('#loginForm button').onmouseover = function() { this.style.transform = 'translateY(-2px)'; };
+        document.querySelector('#loginForm button').onmouseout = function() { this.style.transform = 'translateY(0)'; };
+    </script>
+</body>
+</html>

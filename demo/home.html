@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>临港创新智算服务平台</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="config.js"></script>
+    <script src="auth.js"></script>
+    <script>
+        // 检查登录状态和园区权限
+        document.addEventListener('DOMContentLoaded', () => {
+            if (!checkPageAuth()) {
+                return;
+            }
+        });
+    </script>
+    <style>
+        :root {
+            --primary-color: #3b82f6;
+            --primary-dark: #2563eb;
+            --primary-gradient: linear-gradient(135deg, #3b82f6, #2563eb);
+        }
+    </style>
+</head>
+<body onload="initParkPage()">
+    <!-- 顶部导航栏 -->
+    <header class="header">
+        <div class="header-container">
+            <div class="logo">
+                <i class="fas fa-microchip"></i>
+                <span id="siteTitle">临港创新智算服务平台</span>
+            </div>
+            <nav class="nav" id="mainNav">
+                <a href="index.html" class="nav-item">返回园区入口</a>
+                <a href="models.html" class="nav-item" data-feature="models">模型广场</a>
+                <a href="resources.html" class="nav-item" data-feature="resources">优惠资源</a>
+                <a href="agent.html" class="nav-item" data-feature="agent">智能助手</a>
+                <a href="innovation.html" class="nav-item" data-feature="innovation">创新世界</a>
+                <a href="activities.html" class="nav-item" data-feature="activities">线下活动</a>
+                <a href="dashboard.html" class="nav-item">控制台</a>
+            </nav>
+            <div class="auth-buttons">
+                <button class="btn-secondary" onclick="showLoginModal()">登录</button>
+                <button class="btn-primary" onclick="showLoginModal()">注册</button>
+            </div>
+            <div class="user-info" id="userInfo" style="display: none;">
+                <div class="user-avatar">
+                    <i class="fas fa-user"></i>
+                </div>
+                <div class="user-name" id="userName">企业用户</div>
+                <div class="user-dropdown">
+                    <a href="dashboard.html"><i class="fas fa-user-circle"></i> 个人中心</a>
+                    <a href="dashboard.html"><i class="fas fa-file-invoice-dollar"></i> 账单中心</a>
+                    <a href="dashboard.html"><i class="fas fa-cog"></i> 平台管理</a>
+                    <a href="#" onclick="logout()"><i class="fas fa-sign-out-alt"></i> 退出登录</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- 英雄横幅 -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1 id="heroTitle">赋能临港企业数字化转型升级</h1>
+            <p class="hero-subtitle" id="heroSubtitle">普惠、高效、灵活的算力服务一站式解决方案</p>
+            <div class="hero-buttons">
+                <a href="dashboard.html" class="btn btn-primary btn-large">立即体验</a>
+                <a href="models.html" class="btn btn-secondary btn-large">了解更多</a>
+            </div>
+        </div>
+        <div class="hero-stats">
+            <div class="stat-item">
+                <div class="stat-number" id="statCompanies">500+</div>
+                <div class="stat-label">服务企业</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number" id="statGpus">1000+</div>
+                <div class="stat-label">覆盖GPU卡</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number" id="statAvailability">99.9%</div>
+                <div class="stat-label">服务可用性</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number" id="statSubsidy">50%</div>
+                <div class="stat-label">平均补贴比例</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 核心功能介绍 -->
+    <section class="features">
+        <div class="container">
+            <h2 class="section-title">核心功能</h2>
+            <p class="section-subtitle">为园区企业提供全方位的算力赋能服务</p>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-cubes"></i>
+                    </div>
+                    <h3>模型广场</h3>
+                    <p>集成主流开源大模型、行业专用模型，通过标准API接口按tokens计费，支持政府补贴与企业让利双重支持</p>
+                    <a href="models.html" class="feature-link">了解更多 <i class="fas fa-arrow-right"></i></a>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-server"></i>
+                    </div>
+                    <h3>优惠资源池</h3>
+                    <p>整合裸金属资源，提供按卡时计费的弹性算力服务，通过批量采购优势惠及园区企业</p>
+                    <a href="resources.html" class="feature-link">了解更多 <i class="fas fa-arrow-right"></i></a>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-robot"></i>
+                    </div>
+                    <h3>智能助手</h3>
+                    <p>政策问答、应用技巧、业务咨询三大智能助手矩阵，助力企业快速上手平台功能</p>
+                    <a href="agent.html" class="feature-link">了解更多 <i class="fas fa-arrow-right"></i></a>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-lightbulb"></i>
+                    </div>
+                    <h3>创新世界</h3>
+                    <p>支持用户上传自研应用，应用被调用后可返还积分，积分可用于兑换算力资源</p>
+                    <a href="innovation.html" class="feature-link">了解更多 <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 线下活动预览 -->
+    <section class="section-light">
+        <div class="container">
+            <h2 class="section-title">近期活动</h2>
+            <p class="section-subtitle"线上线下联动，促进园区企业资源对接与交流协作</p>
+            <div class="activity-list">
+                <div class="activity-card">
+                    <div class="activity-date">
+                        <div class="date-month">2月</div>
+                        <div class="date-day">20</div>
+                    </div>
+                    <div class="activity-content">
+                        <h4>AI算力应用技术沙龙</h4>
+                        <p class="activity-desc">邀请行业专家分享AI算力在各行业的应用实践案例</p>
+                        <div class="activity-meta">
+                            <span><i class="fas fa-clock"></i> 14:00-17:00</span>
+                            <span><i class="fas fa-map-marker-alt"></i> 临港魔方A栋会议室</span>
+                        </div>
+                    </div>
+                    <a href="activities.html" class="btn btn-primary btn-small">查看详情</a>
+                </div>
+                <div class="activity-card">
+                    <div class="activity-date">
+                        <div class="date-month">2月</div>
+                        <div class="date-day">28</div>
+                    </div>
+                    <div class="activity-content">
+                        <h4>初创企业项目路演</h4>
+                        <p class="activity-desc">为初创企业提供展示平台，对接投资机会和产业资源</p>
+                        <div class="activity-meta">
+                            <span><i class="fas fa-clock"></i> 13:30-17:30</span>
+                            <span><i class="fas fa-map-marker-alt"></i> 临港创新中心</span>
+                        </div>
+                    </div>
+                    <a href="activities.html" class="btn btn-primary btn-small">查看详情</a>
+                </div>
+            </div>
+            <div style="text-align: center; margin-top: 30px;">
+                <a href="activities.html" class="btn btn-secondary">查看全部活动</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- 合作方 -->
+    <section class="partners">
+        <div class="container">
+            <h2 class="section-title">合作方</h2>
+            <div class="partners-grid">
+                <div class="partner-item">
+                    <div class="partner-logo">
+                        <i class="fas fa-landmark"></i>
+                    </div>
+                    <h4>临港管委会</h4>
+                    <p>政策引导方</p>
+                </div>
+                <div class="partner-item">
+                    <div class="partner-logo">
+                        <i class="fas fa-database"></i>
+                    </div>
+                    <h4>上海有孚网络</h4>
+                    <p>资源供应方</p>
+                </div>
+                <div class="partner-item">
+                    <div class="partner-logo">
+                        <i class="fas fa-laptop-code"></i>
+                    </div>
+                    <h4>上海成电福智</h4>
+                    <p>技术开发方</p>
+                </div>
+                <div class="partner-item">
+                    <div class="partner-logo">
+                        <i class="fas fa-cube"></i>
+                    </div>
+                    <h4>临港魔方</h4>
+                    <p>园区运营</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 页脚 -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-top">
+                <div class="footer-section">
+                    <h4>平台服务</h4>
+                    <ul>
+                        <li><a href="models.html">模型广场</a></li>
+                        <li><a href="resources.html">优惠资源</a></li>
+                        <li><a href="agent.html">智能助手</a></li>
+                        <li><a href="innovation.html">创新世界</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>开发者中心</h4>
+                    <ul>
+                        <li><a href="#">API文档</a></li>
+                        <li><a href="#">SDK下载</a></li>
+                        <li><a href="#">技术论坛</a></li>
+                        <li><a href="#">开源项目</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>支持与帮助</h4>
+                    <ul>
+                        <li><a href="#">使用指南</a></li>
+                        <li><a href="#">常见问题</a></li>
+                        <li><a href="#">联系我们</a></li>
+                        <li><a href="#">意见反馈</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section contact">
+                    <h4>联系我们</h4>
+                    <p><i class="fas fa-phone"></i> 400-XXX-XXXX</p>
+                    <p><i class="fas fa-envelope"></i> service@lingang-ai.com</p>
+                    <p><i class="fas fa-map-marker-alt"></i> 上海市临港新片区...</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <div class="footer-left">
+                    <p>&copy; 2024 临港创新智算服务平台 版权所有</p>
+                </div>
+                <div class="footer-right">
+                    <a href="#">隐私政策</a>
+                    <a href="#">服务条款</a>
+                    <a href="#">备案信息</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- 登录模态框 -->
+    <div class="modal" id="loginModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>登录</h3>
+                <button class="modal-close" onclick="closeModal('loginModal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="loginForm">
+                    <div class="form-group">
+                        <label>用户名/手机号</label>
+                        <input type="text" id="loginUsername" placeholder="请输入用户名或手机号">
+                    </div>
+                    <div class="form-group">
+                        <label>密码</label>
+                        <input type="password" id="loginPassword" placeholder="请输入密码">
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-block">登录</button>
+                </form>
+                <div class="modal-footer-text">
+                    <span>还没有账号？<a href="#" onclick="switchToRegister()">立即注册</a></span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 注册模态框 -->
+    <div class="modal" id="registerModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>注册</h3>
+                <button class="modal-close" onclick="closeModal('registerModal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="registerForm">
+                    <div class="form-group">
+                        <label>企业名称</label>
+                        <input type="text" id="registerCompany" placeholder="请输入企业名称">
+                    </div>
+                    <div class="form-group">
+                        <label>联系人姓名</label>
+                        <input type="text" id="registerName" placeholder="请输入联系人姓名">
+                    </div>
+                    <div class="form-group">
+                        <label>手机号</label>
+                        <input type="tel" id="registerPhone" placeholder="请输入手机号">
+                    </div>
+                    <div class="form-group">
+                        <label>密码</label>
+                        <input type="password" id="registerPassword" placeholder="请输入密码（至少6位）">
+                    </div>
+                    <div class="form-group">
+                        <label>所属园区</label>
+                        <select id="registerPark">
+                            <option value="">请选择所属园区</option>
+                            <option value="mf">临港魔方</option>
+                            <option value="other">其他园区</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-block">注册</button>
+                </form>
+                <div class="modal-footer-text">
+                    <span>已有账号？<a href="#" onclick="switchToLogin()">立即登录</a></span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 智能助手聊天窗口 -->
+    <div class="chat-widget" id="chatWidget">
+        <div class="chat-header">
+            <div class="chat-title">
+                <i class="fas fa-robot"></i>
+                <span id="chatAgentName">智能助手</span>
+            </div>
+            <button class="chat-close" onclick="closeChat()">&times;</button>
+        </div>
+        <div class="chat-messages" id="chatMessages">
+            <div class="chat-message agent">
+                <div class="message-avatar">
+                    <i class="fas fa-robot"></i>
+                </div>
+                <div class="message-content">
+                    <p>您好！我是智能助手。请问有什么可以帮助您的？</p>
+                </div>
+            </div>
+        </div>
+        <div class="chat-input-area">
+            <input type="text" id="chatInput" placeholder="请输入您的问题..." onkeypress="handleChatKeypress(event)">
+            <button class="chat-send" onclick="sendMessage()">
+                <i class="fas fa-paper-plane"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- 悬浮聊天按钮 -->
+    <button class="chat-float-btn" id="chatFloatBtn" onclick="toggleChat()">
+        <i class="fas fa-comment-dots"></i>
+    </button>
+
+    <script src="script.js"></script>
+    <script>
+        // 页面初始化：应用园区配置
+        function initParkPage() {
+            const park = initPark();
+            if (!park) return;
+
+            // 更新页面标题
+            document.title = park.name + ' - 临港创新智算服务平台';
+            document.getElementById('siteTitle').textContent = park.name;
+
+            // 更新 hero 区域
+            document.getElementById('heroTitle').textContent = park.hero.title;
+            document.getElementById('heroSubtitle').textContent = park.hero.subtitle;
+
+            // 更新统计数据
+            document.getElementById('statCompanies').textContent = park.stats.companies;
+            document.getElementById('statGpus').textContent = park.stats.gpus;
+            document.getElementById('statAvailability').textContent = park.stats.availability;
+            document.getElementById('statSubsidy').textContent = park.stats.subsidy;
+
+            // 根据功能配置隐藏导航项
+            document.querySelectorAll('[data-feature]').forEach(item => {
+                const feature = item.getAttribute('data-feature');
+                if (park.features[feature] === false) {
+                    item.style.display = 'none';
+                }
+            });
+        }
+    </script>
+</body>
+</html>

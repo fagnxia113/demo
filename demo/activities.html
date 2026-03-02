@@ -7,6 +7,14 @@
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="config.js"></script>
+    <script src="auth.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            if (!checkPageAuth()) {
+                return;
+            }
+        });
+    </script>
     <style>
         :root {
             --primary-color: #3b82f6;
@@ -24,7 +32,6 @@
                 <span id="siteTitle">临港创新智算服务平台</span>
             </div>
             <nav class="nav" id="mainNav">
-                <a href="portal.html" class="nav-item" style="opacity:0.7"><i class="fas fa-th-large"></i> 切换园区</a>
                 <a href="index.html" class="nav-item">首页</a>
                 <a href="models.html" class="nav-item" data-feature="models">模型广场</a>
                 <a href="resources.html" class="nav-item" data-feature="resources">优惠资源</a>
@@ -68,7 +75,7 @@
                         <p class="activity-desc">邀请行业专家分享AI算力在各行业的应用实践案例，探讨算力赋能产业发展的新趋势</p>
                         <div class="activity-meta">
                             <span><i class="fas fa-clock"></i> 14:00-17:00</span>
-                            <span><i class="fas fa-map-marker-alt"></i> 临港魔方A栋会议室</span>
+                            <span><i class="fas fa-map-marker-alt"></i> 园区会议中心</span>
                             <span><i class="fas fa-users"></i> 已报名 45人</span>
                         </div>
                     </div>
@@ -85,7 +92,7 @@
                         <p class="activity-desc">为初创企业提供展示平台，对接投资机会和产业资源，助力创新项目快速成长</p>
                         <div class="activity-meta">
                             <span><i class="fas fa-clock"></i> 13:30-17:30</span>
-                            <span><i class="fas fa-map-marker-alt"></i> 临港创新中心</span>
+                            <span><i class="fas fa-map-marker-alt"></i> 园区创新中心</span>
                             <span><i class="fas fa-users"></i> 已报名 32人</span>
                         </div>
                     </div>
@@ -102,7 +109,7 @@
                         <p class="activity-desc">理论结合实践，深入了解大模型开发与部署的全流程，快速上手AI应用开发</p>
                         <div class="activity-meta">
                             <span><i class="fas fa-clock"></i> 09:00-17:00</span>
-                            <span><i class="fas fa-map-marker-alt"></i> 临港魔方培训中心</span>
+                            <span><i class="fas fa-map-marker-alt"></i> 园区培训中心</span>
                             <span><i class="fas fa-users"></i> 已报名 28人</span>
                         </div>
                     </div>
@@ -119,7 +126,7 @@
                         <p class="activity-desc">邀请知名企业分享AI在实际业务场景中的应用案例，探讨AI落地的挑战与机遇</p>
                         <div class="activity-meta">
                             <span><i class="fas fa-clock"></i> 14:00-17:00</span>
-                            <span><i class="fas fa-map-marker-alt"></i> 临港创新中心</span>
+                            <span><i class="fas fa-map-marker-alt"></i> 园区创新中心</span>
                             <span><i class="fas fa-users"></i> 已报名 52人</span>
                         </div>
                     </div>
@@ -136,7 +143,7 @@
                         <p class="activity-desc">邀请数十家知名投资机构，为园区企业搭建投融资对接桥梁</p>
                         <div class="activity-meta">
                             <span><i class="fas fa-clock"></i> 09:00-12:00</span>
-                            <span><i class="fas fa-map-marker-alt"></i> 临港创新中心</span>
+                            <span><i class="fas fa-map-marker-alt"></i> 园区创新中心</span>
                             <span><i class="fas fa-users"></i> 已报名 18人</span>
                         </div>
                     </div>
@@ -153,7 +160,7 @@
                         <p class="activity-desc">从零开始学习使用AI生成内容工具，打造创意作品</p>
                         <div class="activity-meta">
                             <span><i class="fas fa-clock"></i> 14:00-18:00</span>
-                            <span><i class="fas fa-map-marker-alt"></i> 临港魔方A栋会议室</span>
+                            <span><i class="fas fa-map-marker-alt"></i> 园区会议中心</span>
                             <span><i class="fas fa-users"></i> 已报名 40人</span>
                         </div>
                     </div>
@@ -163,7 +170,7 @@
 
             <div class="join-community">
                 <h3>加入我们的社群</h3>
-                <p>通过企业微信加入临港智算平台社群，获取最新活动信息和技术交流机会</p>
+                <p>通过企业微信加入智算平台社群，获取最新活动信息和技术交流机会</p>
                 <button class="btn btn-primary" onclick="showCommunityModal()">
                     <i class="fab fa-weixin"></i> 加入社群
                 </button>
@@ -207,6 +214,8 @@
     <button class="chat-float-btn" id="chatFloatBtn" onclick="toggleChat()">
         <i class="fas fa-comment-dots"></i>
     </button>
+
+    <script src="script.js"></script>
 
     <script src="script.js"></script>
     <script>

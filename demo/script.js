@@ -18,8 +18,7 @@ function closeModal(modalId) {
 // Switch between login and register
 function switchToRegister() {
     closeModal('loginModal');
-    showLoginModal();
-    // Open register modal in real implementation
+    showRegisterModal();
     alert('注册功能 - 请联系园区主账户开通');
 }
 
@@ -36,6 +35,88 @@ document.querySelectorAll('.modal').forEach(modal => {
         }
     });
 });
+
+// 需要登录才能访问的页面列表
+const AUTH_REQUIRED_PAGES = [
+    'index.html',
+    'models.html',
+    'resources.html',
+    'agent.html',
+    'innovation.html',
+    'activities.html',
+    'dashboard.html'
+];
+
+// 检查当前页面是否需要登录验证
+function checkPageAuth() {
+    const currentPage = window.location.pathname.split('/').pop();
+
+    // login.html 和 portal.html 不需要登录验证
+    if (currentPage === 'login.html' || currentPage === 'portal.html' || currentPage === '') {
+        return true;
+    }
+
+    // 其他页面需要登录
+    const currentUser = checkAuthStatus();
+    if (!currentUser) {
+        window.location.href = 'login.html';
+        return false;
+    }
+
+    // 检查园区权限
+    const urlParams = new URLSearchParams(window.location.search);
+    const requestedParkId = urlParams.get('park');
+
+    if (requestedParkId && requestedParkId !== currentUser.parkId) {
+        const requestedPark = PARK_CONFIG.parks[requestedParkId];
+        const userPark = PARK_CONFIG.parks[currentUser.parkId];
+        alert(`您没有权限访问 ${requestedPark.name}\n您只能访问您所属的园区：${userPark.name}`);
+        // 重定向到用户自己的园区
+        window.location.href = `${currentPage}?park=${currentUser.parkId}`;
+        return false;
+    }
+
+    return true;
+}
+
+// 更新UI以反映登录状态
+function updateAuthUI() {
+    const currentUser = checkAuthStatus();
+    const authButtons = document.querySelector('.auth-buttons');
+    const userInfo = document.getElementById('userInfo');
+    const userName = document.getElementById('userName');
+
+    if (currentUser) {
+        // 已登录
+        if (authButtons) {
+            authButtons.style.display = 'none';
+        }
+        if (userInfo) {
+            userInfo.style.display = 'flex';
+            if (userName) {
+                userName.textContent = currentUser.companyName || currentUser.username;
+            }
+        }
+
+        // 更新企业信息（如果有）
+        const companyNameEl = document.querySelector('.company-info span');
+        if (companyNameEl && companyNameEl.textContent === 'XX科技有限公司') {
+            companyNameEl.textContent = currentUser.companyName;
+        }
+        const parkNameEl = document.querySelectorAll('.company-info span')[1];
+        if (parkNameEl) {
+            parkNameEl.textContent = PARK_CONFIG.parks[currentUser.parkId].name;
+        }
+    } else {
+        // 未登录
+        if (authButtons) {
+            authButtons.style.display = 'flex';
+        }
+        if (userInfo) {
+            userInfo.style.display = 'none';
+        }
+    }
+}
 
 // Model tabs filtering
 const tabBtns = document.querySelectorAll('.tab-btn');
@@ -95,58 +176,59 @@ if (userInfo) {
     });
 }
 
-// Simulate login
-let isLoggedIn = false;
-
+// 登录表单处理 - 仅用于模态框场景（login.html 有独立处理）
 document.getElementById('loginForm')?.addEventListener('submit', (e) => {
     e.preventDefault();
-    const username = document.getElementById('loginUsername').value || '企业用户';
+    const username = document.getElementById('loginUsername').value;
+    const password = document.getElementById('loginPassword').value;
 
-    isLoggedIn = true;
-    document.getElementById('userName').textContent = username;
-
-    document.getElementById('loginModal').classList.remove('active');
-    document.getElementById('userInfo').style.display = 'flex';
-
-    const authButtons = document.querySelector('.auth-buttons');
-    if (authButtons) {
-        authButtons.style.display = 'none';
+    if (!username || !password) {
+        alert('请输入用户名和密码');
+        return;
     }
 
-    showNotification('登录成功！欢迎回来');
+    // 在预设账户中查找用户
+    const user = Object.values(USER_ACCOUNTS).find(u => u.username === username && u.password === password);
+
+    if (!user) {
+        alert('用户名或密码错误\n\n提示：请使用园区预设账户登录\n例如：keji_demo / demo123');
+        return;
+    }
+
+    // 登录成功
+    setCurrentUser(user);
+
+    // 关闭登录模态框
+    document.getElementById('loginModal')?.classList.remove('active');
+
+    // 更新UI
+    updateAuthUI();
+
+    // 显示成功消息
+    const parkName = PARK_CONFIG.parks[user.parkId].name;
+    showNotification(`登录成功！欢迎来到 ${parkName}`);
+
+    // 刷新页面以应用园区配置
+    const currentUrl = new URL(window.location.href);
+    if (!currentUrl.searchParams.get('park')) {
+        currentUrl.searchParams.set('park', user.parkId);
+        window.location.href = currentUrl.toString();
+    } else {
+        location.reload();
+    }
 });
 
 document.getElementById('registerForm')?.addEventListener('submit', (e) => {
     e.preventDefault();
-    const company = document.getElementById('registerCompany')?.value || '新用户';
-
-    isLoggedIn = true;
-    document.getElementById('userName').textContent = company;
-
-    document.getElementById('registerModal').classList.remove('active');
-    document.getElementById('userInfo').style.display = 'flex';
-
-    const authButtons = document.querySelector('.auth-buttons');
-    if (authButtons) {
-        authButtons.style.display = 'none';
-    }
-
-    showNotification('注册成功！欢迎加入');
+    alert('注册功能 - 请联系园区主账户开通');
 });
 
 function logout() {
     if (confirm('确定要退出登录吗？')) {
-        isLoggedIn = false;
+        clearCurrentUser();
 
-        const authButtons = document.querySelector('.auth-buttons');
-        if (authButtons) {
-            authButtons.style.display = 'flex';
-        }
-
-        document.getElementById('userInfo').style.display = 'none';
-        document.getElementById('userInfo').querySelector('.user-dropdown')?.classList.remove('active');
-
-        showNotification('已退出登录');
+        // 重定向到登录页面
+        window.location.href = 'login.html';
     }
 }
 
@@ -216,7 +298,8 @@ function startAgentChat(agentType) {
         `;
     }
 
-    if (!isLoggedIn) {
+    const currentUser = checkAuthStatus();
+    if (!currentUser) {
         showNotification('请先登录后再使用智能助手');
     }
 }
@@ -231,7 +314,7 @@ function sendMessage() {
 
     if (!message) return;
 
-    // Add user message
+    // 添加用户消息
     chatMessages.innerHTML += `
         <div class="chat-message user">
             <div class="message-avatar">
@@ -245,13 +328,16 @@ function sendMessage() {
 
     input.value = '';
 
-    // Simulate agent response
+    // 模拟助手回复
     setTimeout(() => {
+        const currentUser = checkAuthStatus();
+        const parkName = currentUser ? PARK_CONFIG.parks[currentUser.parkId].name : '临港创新智算服务平台';
+
         const responses = [
-            '感谢您的咨询！我已收到您的问题，正在为您查找相关信息。',
+            `感谢您的咨询！作为${parkName}的智能助手，我已收到您的问题，正在为您查找相关信息。`,
             '这是一个很好的问题！关于您提到的内容，我可以为您提供以下帮助...',
-            '根据平台的政策规定，您可以享受相应的补贴优惠。',
-            '如果您需要更详细的信息，建议您联系我们的客服团队。',
+            `根据${parkName}的政策规定，您可以享受相应的补贴优惠。`,
+            '如果您需要更详细的信息，建议您联系我们园区的客服团队。',
             '您的问题已经记录，我们会尽快给您答复。'
         ];
 
@@ -282,39 +368,50 @@ function handleChatKeypress(event) {
 
 // Action functions
 function useModel(modelName) {
-    if (!isLoggedIn) {
+    const currentUser = checkAuthStatus();
+    if (!currentUser) {
         showLoginModal();
         showNotification('请先登录后再使用模型');
         return;
     }
-    showNotification(`即将为您部署 ${modelName} 模型...`);
+
+    const parkName = PARK_CONFIG.parks[currentUser.parkId].name;
+    showNotification(`[${parkName}] 即将为您部署 ${modelName} 模型...`);
 }
 
 function orderResource(resourceName) {
-    if (!isLoggedIn) {
+    const currentUser = checkAuthStatus();
+    if (!currentUser) {
         showLoginModal();
         showNotification('请先登录后再预订资源');
         return;
     }
-    showNotification(`正在为您预订 ${resourceName}，请耐心等待...`);
+
+    const parkName = PARK_CONFIG.parks[currentUser.parkId].name;
+    showNotification(`[${parkName}] 正在为您预订 ${resourceName}，请耐心等待...`);
 }
 
 function useApp(appName) {
-    if (!isLoggedIn) {
+    const currentUser = checkAuthStatus();
+    if (!currentUser) {
         showLoginModal();
         showNotification('请先登录后再使用应用');
         return;
     }
-    showNotification(`正在为您打开 ${appName}...`);
+
+    const parkName = PARK_CONFIG.parks[currentUser.parkId].name;
+    showNotification(`[${parkName}] 正在为您打开 ${appName}...`);
 }
 
 function signUpActivity(activityName) {
-    if (!isLoggedIn) {
+    const currentUser = checkAuthStatus();
+    if (!currentUser) {
         showLoginModal();
         showNotification('请先登录后再报名活动');
         return;
     }
-    showNotification(`报名成功！${activityName} 开办前我们会发提醒通知`);
+
+    formNotification(`报名成功！${activityName} 开办前我们会发提醒通知`);
 }
 
 function showCommunityModal() {
@@ -362,6 +459,11 @@ function showNotification(message, duration = 3000) {
     }, duration);
 }
 
+// 修正方法名（之前的 typo）
+function formNotification(message, duration = 3000) {
+    showNotification(message, duration);
+}
+
 // Add notification animations
 const style = document.createElement('style');
 style.textContent = `
@@ -390,6 +492,10 @@ document.head.appendChild(style);
 
 // Initialize - mark first nav item as active on page load
 document.addEventListener('DOMContentLoaded', () => {
+    // 检查登录状态和页面权限
+    checkPageAuth();
+    updateAuthUI();
+
     // Set active nav based on current page
     const currentPage = window.location.pathname.split('/').pop() || 'index.html';
     document.querySelectorAll('.nav-item').forEach(item => {

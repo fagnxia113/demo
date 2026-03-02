@@ -7,6 +7,15 @@
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="config.js"></script>
+    <script src="auth.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            if (!checkPageAuth()) {
+                return;
+            }
+        });
+    </script>
+    <script src="script.js"></script>
     <style>
         :root {
             --primary-color: #3b82f6;
@@ -24,7 +33,6 @@
                 <span id="siteTitle">临港创新智算服务平台</span>
             </div>
             <nav class="nav" id="mainNav">
-                <a href="portal.html" class="nav-item" style="opacity:0.7"><i class="fas fa-th-large"></i> 切换园区</a>
                 <a href="index.html" class="nav-item">首页</a>
                 <a href="models.html" class="nav-item" data-feature="models">模型广场</a>
                 <a href="resources.html" class="nav-item active" data-feature="resources">优惠资源</a>
