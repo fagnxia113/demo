@@ -2,6 +2,160 @@
  * 临港创新智算服务平台 - 园区配置
  */
 
+const RESOURCE_SUPPLIERS = {
+    'youfu': {
+        name: '有孚',
+        resources: {
+            servers: [
+                { name: '4070ti', price: '3500' },
+                { name: '4090', price: '4500' },
+                { name: 'A100', price: '8500' },
+                { name: 'H100', price: '15000' }
+            ],
+            专线: [
+                { name: '10G', price: '80000' },
+                { name: '500M', price: '30000' },
+                { name: '50M', price: '8000' }
+            ],
+            机柜: [
+                { name: '6KW', price: '5000' },
+                { name: '7KW', price: '6000' }
+            ]
+        },
+        contact: {
+            phone: '400-888-0001',
+            email: 'service@youfu.com',
+            address: '上海市临港新片区...'
+        }
+    },
+    'shanghaidianxin': {
+        name: '上海电信',
+        resources: {
+            servers: [
+                { name: '4090', price: '4600' },
+                { name: 'A800', price: '16000' },
+                { name: 'H800', price: '18000' },
+                { name: 'H200', price: '20000' }
+            ],
+            专线: [
+                { name: '10G', price: '100000' },
+                { name: '跨境专线', price: '300000' }
+            ],
+            机柜: [
+                { name: '6KW', price: '5500' },
+                { name: '10KW', price: '8000' },
+                { name: '12KW', price: '9000' }
+            ]
+        },
+        contact: {
+            phone: '400-888-0002',
+            email: 'business@sh.telecom.cn',
+            address: '上海市浦东新区...'
+        }
+    },
+    'sensetime': {
+        name: '商汤科技',
+        resources: {
+            servers: [
+                { name: 'A100', price: '9000' },
+                { name: 'A800', price: '17000' },
+                { name: 'H100', price: '16000' },
+                { name: 'H800', price: '19000' }
+            ],
+            专线: [
+                { name: '10G', price: '120000' },
+                { name: '公网与安全服务', price: '50000' }
+            ],
+            机柜: [
+                { name: '7KW', price: '6500' },
+                { name: '10KW', price: '8500' }
+            ]
+        },
+        contact: {
+            phone: '400-888-0003',
+            email: 'ai-service@sensetime.com',
+            address: '上海市徐汇区...'
+        }
+    },
+    'chengdi': {
+        name: '城地香江',
+        resources: {
+            servers: [
+                { name: '910B', price: '4000' },
+                { name: '4070ti', price: '3400' },
+                { name: 'H20', price: '13000' },
+                { name: 'H800', price: '17500' }
+            ],
+            专线: [
+                { name: '500M', price: '28000' },
+                { name: '50M', price: '7500' }
+            ],
+            机柜: [
+                { name: '6KW', price: '4800' },
+                { name: '7KW', price: '5800' },
+                { name: '10KW', price: '7800' }
+            ]
+        },
+        contact: {
+            phone: '400-888-0004',
+            email: 'data@chengdi.com',
+            address: '上海市浦东新区...'
+        }
+    },
+    'shanghailiantong': {
+        name: '上海联通',
+        resources: {
+            servers: [
+                { name: '4090', price: '4400' },
+                { name: 'A100', price: '8700' },
+                { name: 'H100', price: '15500' },
+                { name: 'H200', price: '19500' }
+            ],
+            专线: [
+                { name: '10G', price: '90000' },
+                { name: '跨境专线', price: '280000' },
+                { name: '公网与安全服务', price: '45000' }
+            ],
+            机柜: [
+                { name: '6KW', price: '5200' },
+                { name: '10KW', price: '7800' },
+                { name: '12KW', price: '8800' }
+            ]
+        },
+        contact: {
+            phone: '400-888-0005',
+            email: 'enterprise@sh.unicom.cn',
+            address: '上海市静安区...'
+        }
+    },
+    'shanghaimobile': {
+        name: '上海移动',
+        resources: {
+            servers: [
+                { name: '4070ti', price: '3300' },
+                { name: '4090', price: '4300' },
+                { name: '910B', price: '3900' },
+                { name: 'A800', price: '15800' }
+            ],
+            专线: [
+                { name: '10G', price: '85000' },
+                { name: '500M', price: '29000' },
+                { name: '跨境专线', price: '260000' }
+            ],
+            机柜: [
+                { name: '7KW', price: '5700' },
+                { name: '10KW', price: '7700' },
+                { name: '12KW', price: '8700' }
+            ]
+        },
+        contact: {
+            phone: '400-888-0006',
+            email: 'idc@sh.chinamobile.com',
+            address: '上海市虹口区...'
+        }
+    }
+};
+
 const PARK_CONFIG = {
     // 默认园区（无参数时使用）
     default: 'keji',
@@ -41,10 +195,14 @@ const PARK_CONFIG = {
             models: [
                 { name: 'DeepSeek V3.2', desc: '深度求索最新旗舰模型，强化Agent能力，融入思考推理，编程与推理能力卓越', context: '128K', price: '¥0.01/1K tokens', tags: ['nlp', 'multi'], badge: 'hot' },
                 { name: 'DeepSeek R1', desc: '深度求索推理模型，擅长复杂逻辑推理与数学问题求解', context: '64K', price: '¥0.02/1K tokens', tags: ['nlp', 'multi'], badge: 'new' },
-                { name: 'Claude Sonnet 4.6', desc: 'Anthropic最强Sonnet模型，编程、Agent和专业工作的前沿性能', context: '200K', price: '¥0.03/1K tokens', tags: ['nlp', 'multi'], badge: 'hot' },
                 { name: 'Qwen3-Max', desc: '阿里通义旗舰模型，全能至强，超万亿参数规模预训练', context: '128K', price: '¥0.02/1K tokens', tags: ['nlp', 'multi'], badge: 'recommend' },
                 { name: 'GLM-5', desc: '智谱AI旗舰模型，面向Agentic Engineering，擅长复杂系统工程与长程Agent任务', context: '128K', price: '¥0.015/1K tokens', tags: ['nlp', 'multi'], badge: 'hot' },
                 { name: 'Qwen3-Coder-Plus', desc: '通义代码专用模型，代码与Agent能力突出', context: '64K', price: '¥0.01/1K tokens', tags: ['nlp'], badge: 'recommend' },
+                { name: '豆包视频生成模型2.0', desc: '字节跳动最新视频生成模型，支持高保真4K视频生成，智能镜头控制', context: '4K视频', price: '¥0.80/次', tags: ['video', 'multi'], badge: 'hot' },
+                { name: '豆包实时语音模型', desc: '字节跳动实时语音交互模型，极速响应，自然流畅', context: '实时交互', price: '¥0.10/分钟', tags: ['audio'], badge: 'new' },
+                { name: '豆包音乐模型', desc: '字节跳动AI音乐生成模型，支持多风格音乐创作与编曲', context: '专业级', price: '¥0.25/首', tags: ['audio', 'multi'], badge: 'recommend' },
+                { name: '豆包语音合成模型2.0', desc: '字节跳动语音合成模型升级版，超拟人语音，情感表达丰富', context: '语音合成', price: '¥0.012/分钟', tags: ['audio'], badge: 'hot' },
+                { name: '豆包角色扮演模型', desc: '字节跳动角色扮演专用模型，支持多角色演绎与场景对话', context: '128K', price: '¥0.015/1K tokens', tags: ['nlp', 'multi'], badge: 'new' },
                 { name: 'YOLOv8', desc: '实时目标检测模型，支持多种物体识别与定位任务', context: '实时检测', price: '¥0.005/次', tags: ['cv'], badge: '' },
                 { name: 'GLM-OCR', desc: '智谱轻量专业OCR模型，复杂文档解析又准又省', context: '文档解析', price: '¥0.008/页', tags: ['cv'], badge: 'recommend' }
             ]
@@ -84,6 +242,10 @@ const PARK_CONFIG = {
                 { name: '可灵 2.6', desc: '快手新一代AI创意生产力平台，支持视频生成、图片生成、动作控制、数字人等', context: '4K视频', price: '¥0.50/次', tags: ['video', 'multi'], badge: 'hot' },
                 { name: 'Wan2.6-T2V', desc: '通义万相视频生成模型，自然音画同步，智能多镜头叙事', context: '高清视频', price: '¥0.60/次', tags: ['video', 'multi'], badge: 'new' },
                 { name: 'Wan2.6-I2V', desc: '通义图生视频模型，智能多镜头叙事，角色一致性保持', context: '视频生成', price: '¥0.55/次', tags: ['video', 'multi'], badge: 'recommend' },
+                { name: '豆包视频生成模型2.0', desc: '字节跳动最新视频生成模型，支持高保真4K视频生成，智能镜头控制', context: '4K视频', price: '¥0.80/次', tags: ['video', 'multi'], badge: 'hot' },
+                { name: '豆包实时语音模型', desc: '字节跳动实时语音交互模型，极速响应，自然流畅', context: '实时交互', price: '¥0.10/分钟', tags: ['audio'], badge: 'new' },
+                { name: '豆包音乐模型', desc: '字节跳动AI音乐生成模型，支持多风格音乐创作与编曲', context: '专业级', price: '¥0.25/首', tags: ['audio', 'multi'], badge: 'recommend' },
+                { name: '豆包语音合成模型2.0', desc: '字节跳动语音合成模型升级版，超拟人语音，情感表达丰富', context: '语音合成', price: '¥0.012/分钟', tags: ['audio'], badge: 'hot' },
                 { name: 'Midjourney V6', desc: '顶尖AI绘画工具，生成专业级影视概念图与海报', context: '专业级', price: '¥0.50/张', tags: ['cv', 'multi'], badge: 'hot' },
                 { name: 'GLM-Image', desc: '智谱图像生成模型，文字渲染开源SOTA，海报科普图表现佳', context: '图文混排', price: '¥0.03/张', tags: ['cv', 'multi'], badge: 'recommend' },
                 { name: 'Wan2.6-T2I', desc: '通义文生图模型，强大的指令遵循能力', context: '高清输出', price: '¥0.04/张', tags: ['cv', 'multi'], badge: 'recommend' },
@@ -125,7 +287,11 @@ const PARK_CONFIG = {
                 { name: 'GLM-4.6V', desc: '智谱视觉推理模型，全球100B级效果最佳，原生支持工具调用，能看会干', context: '视觉Agent', price: '¥0.02/1K tokens', tags: ['cv', 'multi'], badge: 'hot' },
                 { name: 'Qwen3-Omni', desc: '通义全模态模型，支持文本、图像、音频、视频多模态理解与生成', context: '全模态', price: '¥0.025/1K tokens', tags: ['multi'], badge: 'new' },
                 { name: 'Qwen3-VL-Plus', desc: '通义视觉感知模型，视觉理解能力强，支持图像视频分析', context: '视觉感知', price: '¥0.015/次', tags: ['cv', 'multi'], badge: 'recommend' },
-                { name: 'Claude Haiku 4.5', desc: 'Anthropic轻量快速模型，适合高并发场景', context: '200K', price: '¥0.005/1K tokens', tags: ['nlp'], badge: 'recommend' },
+                { name: '豆包视频生成模型2.0', desc: '字节跳动最新视频生成模型，支持高保真4K视频生成', context: '4K视频', price: '¥0.80/次', tags: ['video', 'multi'], badge: 'hot' },
+                { name: '豆包实时语音模型', desc: '字节跳动实时语音交互模型，极速响应', context: '实时交互', price: '¥0.10/分钟', tags: ['audio'], badge: 'new' },
+                { name: '豆包音乐模型', desc: '字节跳动AI音乐生成模型，支持多风格音乐创作', context: '专业级', price: '¥0.25/首', tags: ['audio', 'multi'], badge: 'recommend' },
+                { name: '豆包语音合成模型2.0', desc: '字节跳动语音合成模型升级版，超拟人语音', context: '语音合成', price: '¥0.012/分钟', tags: ['audio'], badge: 'hot' },
+                { name: '豆包角色扮演模型', desc: '字节跳动角色扮演专用模型，多角色演绎', context: '128K', price: '¥0.015/1K tokens', tags: ['nlp', 'multi'], badge: 'new' },
                 { name: 'GLM-ASR', desc: '智谱实时高精度语音转写，多场景多语言表现出色', context: '实时转写', price: '¥0.018/分钟', tags: ['audio'], badge: 'recommend' },
                 { name: 'GLM-TTS', desc: '智谱超拟人语音合成，塑造生动自然的听觉体验', context: '语音合成', price: '¥0.015/分钟', tags: ['audio'], badge: '' },
                 { name: 'Fun-ASR', desc: '通义语音识别模型，精准识别嘈杂环境、专业术语及混合语种', context: '多语言', price: '¥0.02/分钟', tags: ['audio'], badge: 'new' },
@@ -164,9 +330,12 @@ const PARK_CONFIG = {
             description: '聚焦AI研发与大模型创新，打造人工智能产业高地',
             models: [
                 { name: 'DeepSeek V3.2', desc: '深度求索最新旗舰模型，强化Agent能力，融入思考推理', context: '128K', price: '¥0.01/1K tokens', tags: ['nlp', 'multi'], badge: 'hot' },
-                { name: 'Claude Opus 4.6', desc: 'Anthropic最强模型，复杂任务处理能力顶尖', context: '200K', price: '¥0.075/1K tokens', tags: ['nlp', 'multi'], badge: 'hot' },
                 { name: 'Qwen3-Max', desc: '阿里通义旗舰模型，全能至强，超万亿参数', context: '128K', price: '¥0.02/1K tokens', tags: ['nlp', 'multi'], badge: 'recommend' },
                 { name: 'GLM-5', desc: '智谱旗舰模型，面向Agentic Engineering', context: '128K', price: '¥0.015/1K tokens', tags: ['nlp', 'multi'], badge: 'new' },
+                { name: '豆包视频生成模型2.0', desc: '字节跳动最新视频生成模型，智能镜头控制', context: '4K视频', price: '¥0.80/次', tags: ['video', 'multi'], badge: 'hot' },
+                { name: '豆包实时语音模型', desc: '字节跳动实时语音交互模型，极速响应', context: '实时交互', price: '¥0.10/分钟', tags: ['audio'], badge: 'new' },
+                { name: '豆包语音合成模型2.0', desc: '字节跳动语音合成模型升级版，超拟人语音', context: '语音合成', price: '¥0.012/分钟', tags: ['audio'], badge: 'recommend' },
+                { name: '豆包角色扮演模型', desc: '字节跳动角色扮演专用模型，多角色演绎', context: '128K', price: '¥0.015/1K tokens', tags: ['nlp', 'multi'], badge: 'new' },
                 { name: 'Qwen3-Coder-Plus', desc: '通义代码专用模型，代码与Agent能力突出', context: '64K', price: '¥0.01/1K tokens', tags: ['nlp'], badge: 'recommend' },
                 { name: 'DeepSeek R1', desc: '深度求索推理模型，擅长复杂逻辑与数学问题', context: '64K', price: '¥0.02/1K tokens', tags: ['nlp'], badge: 'new' }
             ]
@@ -204,8 +373,9 @@ const PARK_CONFIG = {
             models: [
                 { name: 'DeepSeek Coder V2', desc: '深度求索代码模型，编程能力卓越，适合芯片设计代码开发', context: '64K', price: '¥0.008/1K tokens', tags: ['nlp'], badge: 'hot' },
                 { name: 'Qwen3-Coder-Plus', desc: '通义代码专用模型，Verilog/VHDL等硬件描述语言支持', context: '64K', price: '¥0.01/1K tokens', tags: ['nlp'], badge: 'recommend' },
-                { name: 'Claude Sonnet 4.6', desc: 'Anthropic编程专家，复杂系统设计与代码审查', context: '200K', price: '¥0.03/1K tokens', tags: ['nlp', 'multi'], badge: 'hot' },
                 { name: 'GLM-5', desc: '智谱旗舰模型，支持技术文档生成与设计辅助', context: '128K', price: '¥0.015/1K tokens', tags: ['nlp', 'multi'], badge: 'recommend' },
+                { name: '豆包语音合成模型2.0', desc: '字节跳动语音合成模型升级版，技术讲解语音', context: '语音合成', price: '¥0.012/分钟', tags: ['audio'], badge: 'recommend' },
+                { name: '豆包视频生成模型2.0', desc: '字节跳动视频生成模型，芯片设计演示视频', context: '4K视频', price: '¥0.80/次', tags: ['video', 'multi'], badge: 'new' },
                 { name: 'Qwen3-VL-Plus', desc: '通义视觉模型，芯片版图分析与缺陷检测', context: '视觉感知', price: '¥0.015/次', tags: ['cv', 'multi'], badge: 'new' },
                 { name: 'GLM-OCR', desc: '智谱OCR模型，技术文档与规格书智能解析', context: '文档解析', price: '¥0.008/页', tags: ['cv'], badge: 'recommend' }
             ]
@@ -243,6 +413,9 @@ const PARK_CONFIG = {
             models: [
                 { name: 'Qwen-Long', desc: '通义长文本模型，支持超长文档分析与数据处理', context: '1M', price: '¥0.001/1K tokens', tags: ['nlp'], badge: 'hot' },
                 { name: 'Qwen3-Max', desc: '通义旗舰模型，多语言数据处理能力强', context: '128K', price: '¥0.02/1K tokens', tags: ['nlp', 'multi'], badge: 'recommend' },
+                { name: '豆包视频生成模型2.0', desc: '字节跳动视频生成模型，数据可视化视频制作', context: '4K视频', price: '¥0.80/次', tags: ['video', 'multi'], badge: 'new' },
+                { name: '豆包语音合成模型2.0', desc: '字节跳动语音合成模型，多语言语音解说', context: '语音合成', price: '¥0.012/分钟', tags: ['audio'], badge: 'recommend' },
+                { name: '豆包角色扮演模型', desc: '字节跳动角色扮演模型，多语言客服', context: '128K', price: '¥0.015/1K tokens', tags: ['nlp', 'multi'], badge: 'new' },
                 { name: 'GLM-4.6V', desc: '智谱视觉推理模型，数据可视化分析与报表生成', context: '视觉Agent', price: '¥0.02/1K tokens', tags: ['cv', 'multi'], badge: 'new' },
                 { name: 'Claude Haiku 4.5', desc: 'Anthropic轻量模型，高并发数据处理场景', context: '200K', price: '¥0.005/1K tokens', tags: ['nlp'], badge: 'recommend' },
                 { name: 'Fun-ASR', desc: '通义语音识别，多语言数据转录与处理', context: '多语言', price: '¥0.02/分钟', tags: ['audio'], badge: 'recommend' },
@@ -283,6 +456,8 @@ const PARK_CONFIG = {
                 { name: 'DeepSeek R1', desc: '深度求索推理模型，复杂金融逻辑与风险评估', context: '64K', price: '¥0.02/1K tokens', tags: ['nlp'], badge: 'hot' },
                 { name: 'Claude Sonnet 4.6', desc: 'Anthropic旗舰模型，金融合规审查与报告生成', context: '200K', price: '¥0.03/1K tokens', tags: ['nlp', 'multi'], badge: 'recommend' },
                 { name: 'Qwen3-Max', desc: '通义旗舰模型，金融文本分析与智能客服', context: '128K', price: '¥0.02/1K tokens', tags: ['nlp', 'multi'], badge: 'hot' },
+                { name: '豆包语音合成模型2.0', desc: '字节跳动语音合成模型，金融播报语音', context: '语音合成', price: '¥0.012/分钟', tags: ['audio'], badge: 'recommend' },
+                { name: '豆包角色扮演模型', desc: '字节跳动角色扮演模型，金融咨询助手', context: '128K', price: '¥0.015/1K tokens', tags: ['nlp', 'multi'], badge: 'new' },
                 { name: 'Qwen3-Coder-Plus', desc: '通义代码模型，量化策略开发与回测', context: '64K', price: '¥0.01/1K tokens', tags: ['nlp'], badge: 'recommend' },
                 { name: 'GLM-4.6V', desc: '智谱视觉模型，票据识别与报表分析', context: '视觉Agent', price: '¥0.02/1K tokens', tags: ['cv', 'multi'], badge: 'new' },
                 { name: 'GLM-OCR', desc: '智谱OCR模型，金融票据与证件识别', context: '票据识别', price: '¥0.01/页', tags: ['cv'], badge: 'recommend' }

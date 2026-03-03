@@ -22,6 +22,106 @@
             --primary-dark: #2563eb;
             --primary-gradient: linear-gradient(135deg, #3b82f6, #2563eb);
         }
+
+        /* 政策文件区块样式 */
+        .policies {
+            padding: 80px 0;
+            background: #f8fafc;
+        }
+
+        .policy-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .policy-card {
+            background: white;
+            border-radius: 12px;
+            padding: 32px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+            border: 1px solid #e5e7eb;
+        }
+
+        .policy-card:hover {
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
+            transform: translateY(-4px);
+        }
+
+        .policy-icon {
+            width: 64px;
+            height: 64px;
+            background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+            font-size: 28px;
+            color: white;
+        }
+
+        .policy-card h3 {
+            font-size: 20px;
+            font-weight: 600;
+            color: #1f2937;
+            margin: 0 0 12px 0;
+            line-height: 1.4;
+        }
+
+        .policy-desc {
+            color: #6b7280;
+            font-size: 14px;
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+
+        .policy-meta {
+            display: flex;
+            gap: 24px;
+            margin-bottom: 24px;
+            font-size: 13px;
+            color: #9ca3af;
+        }
+
+        .policy-meta span {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .policy-actions {
+            display: flex;
+            gap: 12px;
+        }
+
+        .policy-actions .btn {
+            flex: 1;
+            text-align: center;
+            padding: 10px 0;
+            font-size: 14px;
+        }
+
+        @media (max-width: 768px) {
+            .policy-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .policies {
+                padding: 60px 0;
+            }
+
+            .policy-card {
+                padding: 24px;
+            }
+
+            .policy-meta {
+                flex-direction: column;
+                gap: 8px;
+            }
+        }
     </style>
 </head>
 <body onload="initParkPage()">
@@ -136,7 +236,7 @@
     <section class="section-light">
         <div class="container">
             <h2 class="section-title">近期活动</h2>
-            <p class="section-subtitle"线上线下联动，促进园区企业资源对接与交流协作</p>
+            <p class="section-subtitle">线上线下联动，促进园区企业资源对接与交流协作</p>
             <div class="activity-list">
                 <div class="activity-card">
                     <div class="activity-date">
@@ -171,6 +271,50 @@
             </div>
             <div style="text-align: center; margin-top: 30px;">
                 <a href="activities.html" class="btn btn-secondary">查看全部活动</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- 政策文件宣贯 -->
+    <section class="policies">
+        <div class="container">
+            <h2 class="section-title">政策文件与管理办法</h2>
+            <p class="section-subtitle">了解最新政策，掌握平台规则</p>
+            <div class="policy-grid">
+                <div class="policy-card">
+                    <div class="policy-icon">
+                        <i class="fas fa-file-pdf"></i>
+                    </div>
+                    <h3>沪自贸临管委〔2025〕40号文件</h3>
+                    <p class="policy-desc">临港管委会关于推进算力产业发展的官方政策文件</p>
+                    <div class="policy-meta">
+                        <span><i class="fas fa-building"></i> 临港管委会</span>
+                        <span><i class="fas fa-calendar"></i> 2025年</span>
+                    </div>
+                    <div class="policy-actions">
+                        <a href="#" onclick="openPolicyFile('沪自贸临管委〔2025〕40号文件.pdf')" class="btn btn-primary">查看文件</a>
+                        <a href="#" onclick="downloadPolicyFile('沪自贸临管委〔2025〕40号文件.pdf')" class="btn btn-secondary">
+                            <i class="fas fa-download"></i> 下载
+                        </a>
+                    </div>
+                </div>
+                <div class="policy-card">
+                    <div class="policy-icon">
+                        <i class="fas fa-file-word"></i>
+                    </div>
+                    <h3>算力管理办法初稿</h3>
+                    <p class="policy-desc">平台算力服务使用规范和管理制度</p>
+                    <div class="policy-meta">
+                        <span><i class="fas fa-building"></i> 平台运营方</span>
+                        <span><i class="fas fa-calendar"></i> 2024年</span>
+                    </div>
+                    <div class="policy-actions">
+                        <a href="#" onclick="openPolicyFile('算力管理办法初稿.doc')" class="btn btn-primary">查看文件</a>
+                        <a href="#" onclick="downloadPolicyFile('算力管理办法初稿.doc')" class="btn btn-secondary">
+                            <i class="fas fa-download"></i> 下载
+                        </a>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
@@ -391,6 +535,30 @@
                     item.style.display = 'none';
                 }
             });
+        }
+
+        // 查看政策文件
+        function openPolicyFile(filename) {
+            // 在新窗口打开文件
+            const fileUrl = '附件/' + filename;
+            window.open(fileUrl, '_blank');
+        }
+
+        // 下载政策文件
+        function downloadPolicyFile(filename) {
+            const fileUrl = '附件/' + filename;
+            
+            // 创建临时下载链接
+            const link = document.createElement('a');
+            link.href = fileUrl;
+            link.download = filename;
+            link.target = '_blank';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+
+            // 显示下载提示
+            alert('文件下载已开始：' + filename);
         }
     </script>
 </body>

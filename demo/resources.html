@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+***<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
@@ -21,6 +21,151 @@
             --primary-color: #3b82f6;
             --primary-dark: #2563eb;
             --primary-gradient: linear-gradient(135deg, #3b82f6, #2563eb);
+        }
+
+        /* 供应商卡片样式 */
+        .supplier-list {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+            margin-top: 24px;
+        }
+
+        .supplier-card {
+            background: white;
+            border-radius: 16px;
+            padding: 0;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+            overflow: hidden;
+            border: 1px solid #e5e7eb;
+        }
+
+        .supplier-card:hover {
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+            transform: translateY(-4px);
+        }
+
+        .supplier-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 24px;
+            background: linear-gradient(135deg, #3b82f6, #2563eb);
+            color: white;
+        }
+
+        .supplier-header h3 {
+            margin: 0;
+            font-size: 24px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .supplier-header h3::before {
+            content: '🏢';
+            font-size: 28px;
+        }
+
+        .supplier-contact .btn-primary {
+            background: white;
+            color: #3b82f6;
+            border: none;
+            padding: 10px 24px;
+            font-weight: 600;
+        }
+
+        .supplier-contact .btn-primary:hover {
+            background: #f8fafc;
+        }
+
+        .supplier-resources {
+            padding: 24px;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+        }
+
+        .resource-column {
+            background: #f8fafc;
+            border-radius: 12px;
+            padding: 20px;
+        }
+
+        .resource-column-title {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 16px;
+            padding-bottom: 12px;
+            border-bottom: 2px solid #e2e8f0;
+        }
+
+        .resource-column-title h4 {
+            margin: 0;
+            font-size: 16px;
+            font-weight: 600;
+            color: #1e293b;
+        }
+
+        .resource-column-title::before {
+            content: '';
+            width: 4px;
+            height: 20px;
+            background: linear-gradient(135deg, #3b82f6, #2563eb);
+            border-radius: 2px;
+        }
+
+        .resource-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 0;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .resource-item:last-child {
+            border-bottom: none;
+        }
+
+        .resource-item-name {
+            flex: 1;
+            font-size: 14px;
+            color: #475569;
+            font-weight: 500;
+        }
+
+        .resource-item-price {
+            font-size: 16px;
+            font-weight: 600;
+            color: #059669;
+            background: #dcfce7;
+            padding: 4px 12px;
+            border-radius: 8px;
+        }
+
+        @media (max-width: 1024px) {
+            .supplier-resources {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .supplier-resources {
+                grid-template-columns: 1fr;
+            }
+
+            .supplier-header {
+                flex-direction: column;
+                gap: 12px;
+                text-align: center;
+            }
+
+            .supplier-header h3::before {
+                display: block;
+            }
         }
     </style>
 </head>
@@ -69,6 +214,7 @@
                 <button class="resource-btn active" data-type="experience">限时体验</button>
                 <button class="resource-btn" data-type="single">单卡服务</button>
                 <button class="resource-btn" data-type="multi">多卡服务</button>
+                <button class="resource-btn" data-type="suppliers">供应商资源</button>
             </div>
 
             <!-- 限时体验区 -->
@@ -296,6 +442,14 @@
                     </table>
                 </div>
             </div>
+
+            <!-- 供应商资源 -->
+            <div class="resource-content" id="resources-suppliers">
+                <h3 class="resource-section-title">供应商资源池</h3>
+                <div id="supplierList" class="supplier-list">
+                    <!-- 由 JavaScript 动态填充 -->
+                </div>
+            </div>
         </div>
     </main>
 
@@ -347,6 +501,99 @@
                 const feature = item.getAttribute('data-feature');
                 if (park.features[feature] === false) item.style.display = 'none';
             });
+
+            // 渲染供应商资源
+            renderSuppliers();
+
+            // 绑定资源类型切换事件
+            document.querySelectorAll('.resource-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    document.querySelectorAll('.resource-btn').forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    document.querySelectorAll('.resource-content').forEach(content => {
+                        content.classList.remove('active');
+                    });
+                    
+                    const type = this.dataset.type;
+                    document.getElementById('resources-' + type).classList.add('active');
+                });
+            });
+        }
+
+        function renderSuppliers() {
+            const container = document.getElementById('supplierList');
+            if (!container) return;
+
+            if (!RESOURCE_SUPPLIERS) {
+                container.innerHTML = '<p style="text-align:center;color:#666;padding:40px;">暂无供应商数据</p>';
+                return;
+            }
+
+            const suppliersHtml = Object.entries(RESOURCE_SUPPLIERS).map(([id, supplier]) => {
+                const columnsHtml = [
+                    { type: 'servers', label: '算力服务器', icon: '💻' },
+                    { type: '专线', label: '市内专线', icon: '🔗' },
+                    { type: '机柜', label: 'IDC机柜租赁', icon: '🏢' }
+                ].map(({ type, label, icon }) => {
+                    const items = supplier.resources[type] || [];
+                    if (items.length === 0) return '';
+                    return `
+                        <div class="resource-column">
+                            <div class="resource-column-title">
+                                <h4>${icon} ${label}</h4>
+                            </div>
+                            ${items.map(item => `
+                                <div class="resource-item">
+                                    <span class="resource-item-name">${item.name}</span>
+                                    <span class="resource-item-price">¥${item.price}/月起</span>
+                                </div>
+                            `).join('')}
+                        </div>
+                    `;
+                }).join('');
+
+                return `
+                    <div class="supplier-card" data-id="${id}">
+                        <div class="supplier-header">
+                            <h3>${supplier.name}</h3>
+                            <div class="supplier-contact">
+                                <button class="btn btn-primary" onclick="showSupplierContact('${id}')">立即联系</button>
+                            </div>
+                        </div>
+                        <div class="supplier-resources">
+                            ${columnsHtml}
+                        </div>
+                    </div>
+                `;
+            }).join('');
+
+            container.innerHTML = suppliersHtml;
+        }
+
+        function showSupplierContact(supplierId) {
+            const supplier = RESOURCE_SUPPLIERS[supplierId];
+            if (!supplier) return;
+
+            const contactHtml = `
+                <div class="modal-contact-info">
+                    <h4>${supplier.name}</h4>
+                    <div class="contact-item">
+                        <i class="fas fa-phone"></i>
+                        <span>${supplier.contact.phone}</span>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-envelope"></i>
+                        <span>${supplier.contact.email}</span>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>${supplier.contact.address}</span>
+                    </div>
+                </div>
+            `;
+
+            alert(`${supplier.name}\n\n电话: ${supplier.contact.phone}\n邮箱: ${supplier.contact.email}\n地址: ${supplier.contact.address}`);
         }
     </script>
 </body>
