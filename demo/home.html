@@ -104,19 +104,101 @@
             font-size: 14px;
         }
 
+        /* 园区切换器样式 */
+        .park-switcher-container {
+            position: relative;
+            margin-left: 20px;
+            display: none;
+        }
+
+        .park-switcher {
+            background: var(--primary-gradient);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: 10px 20px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+
+        .park-switcher:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(59, 130, 246, 0.4);
+        }
+
+        .park-switcher-dropdown {
+            position: absolute;
+            top: 100%;
+            right: 0;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            padding: 8px 0;
+            min-width: 200px;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(10px);
+            transition: all 0.3s;
+            margin-top: 8px;
+            border: 1px solid #e5e7eb;
+        }
+
+        .park-switcher-container.active .park-switcher-dropdown {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .park-option {
+            padding: 12px 20px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            transition: all 0.2s;
+            color: #1f2937;
+            font-size: 14px;
+        }
+
+        .park-option:hover {
+            background: #f8fafc;
+            color: var(--primary-color);
+        }
+
+        .park-option.active {
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(37, 99, 235, 0.05));
+            color: var(--primary-color);
+            font-weight: 500;
+        }
+
+        .park-option-icon {
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 14px;
+            flex-shrink: 0;
+        }
+
         @media (max-width: 768px) {
             .policy-grid {
                 grid-template-columns: 1fr;
             }
-
             .policies {
                 padding: 60px 0;
             }
-
             .policy-card {
                 padding: 24px;
             }
-
             .policy-meta {
                 flex-direction: column;
                 gap: 8px;
@@ -135,9 +217,10 @@
             <nav class="nav" id="mainNav">
                 <a href="index.html" class="nav-item">返回园区入口</a>
                 <a href="models.html" class="nav-item" data-feature="models">模型广场</a>
-                <a href="resources.html" class="nav-item" data-feature="resources">优惠资源</a>
-                <a href="agent.html" class="nav-item" data-feature="agent">智能助手</a>
-                <a href="innovation.html" class="nav-item" data-feature="innovation">创新世界</a>
+                <a href="resources.html" class="nav-item" data-feature="resources">算力资源</a>
+                <a href="agent.html" class="nav-item" data-feature="agent">OpenClaw</a>
+                <a href="cross-border.html" class="nav-item" data-feature="cross-border">跨境专线</a>
+                <a href="innovation.html" class="nav-item" data-feature="innovation">创新生态</a>
                 <a href="activities.html" class="nav-item" data-feature="activities">线下活动</a>
                 <a href="dashboard.html" class="nav-item">控制台</a>
             </nav>
@@ -155,6 +238,18 @@
                     <a href="dashboard.html"><i class="fas fa-file-invoice-dollar"></i> 账单中心</a>
                     <a href="dashboard.html"><i class="fas fa-cog"></i> 平台管理</a>
                     <a href="#" onclick="logout()"><i class="fas fa-sign-out-alt"></i> 退出登录</a>
+                </div>
+            </div>
+            
+            <!-- 园区切换器（仅通用账号可见） -->
+            <div class="park-switcher-container" id="parkSwitcherContainer">
+                <button class="park-switcher" id="parkSwitcherBtn">
+                    <i class="fas fa-building"></i>
+                    <span id="currentParkName">选择园区</span>
+                    <i class="fas fa-chevron-down"></i>
+                </button>
+                <div class="park-switcher-dropdown" id="parkSwitcherDropdown">
+                    <!-- 园区列表将由JS动态生成 -->
                 </div>
             </div>
         </div>
@@ -364,9 +459,10 @@
                     <h4>平台服务</h4>
                     <ul>
                         <li><a href="models.html">模型广场</a></li>
-                        <li><a href="resources.html">优惠资源</a></li>
-                        <li><a href="agent.html">智能助手</a></li>
-                        <li><a href="innovation.html">创新世界</a></li>
+                        <li><a href="resources.html">算力资源</a></li>
+                        <li><a href="agent.html">OpenClaw</a></li>
+                        <li><a href="cross-border.html">跨境专线</a></li>
+                        <li><a href="innovation.html">创新生态</a></li>
                     </ul>
                 </div>
                 <div class="footer-section">
@@ -469,7 +565,7 @@
                     <button type="submit" class="btn btn-primary btn-block">注册</button>
                 </form>
                 <div class="modal-footer-text">
-                    <span>已有账号？<a href="#" onclick="switchToLogin()">立即登录</a></span>
+                    <span>已有账号？<a href="#" onclick="switchToLogin()">立即注册</a></span>
                 </div>
             </div>
         </div>
@@ -539,7 +635,6 @@
 
         // 查看政策文件
         function openPolicyFile(filename) {
-            // 在新窗口打开文件
             const fileUrl = '附件/' + filename;
             window.open(fileUrl, '_blank');
         }
@@ -547,8 +642,6 @@
         // 下载政策文件
         function downloadPolicyFile(filename) {
             const fileUrl = '附件/' + filename;
-            
-            // 创建临时下载链接
             const link = document.createElement('a');
             link.href = fileUrl;
             link.download = filename;
@@ -556,10 +649,70 @@
             document.body.appendChild(link);
             link.click();
             document.body.removeChild(link);
-
-            // 显示下载提示
             alert('文件下载已开始：' + filename);
         }
+
+        // 初始化园区切换器
+        function initParkSwitcher() {
+            const container = document.getElementById('parkSwitcherContainer');
+            const dropdown = document.getElementById('parkSwitcherDropdown');
+            const currentParkNameEl = document.getElementById('currentParkName');
+            const btn = document.getElementById('parkSwitcherBtn');
+
+            if (!container || !dropdown || !currentParkNameEl || !btn) return;
+
+            // 检查用户是否有切换权限
+            if (!canUserSwitchParks()) {
+                container.style.display = 'none';
+                return;
+            }
+
+            // 显示切换器
+            container.style.display = 'block';
+
+            // 获取所有园区
+            const parks = getSwitchableParks();
+            if (parks.length === 0) return;
+
+            // 获取当前园区
+            const currentPark = getCurrentPark();
+            if (currentPark) {
+                currentParkNameEl.textContent = currentPark.name;
+            }
+
+            // 生成园区选项
+            const urlParams = new URLSearchParams(window.location.search);
+            const currentParkId = urlParams.get('park') || PARK_CONFIG.default;
+
+            dropdown.innerHTML = parks.map(park => `
+                <div class="park-option ${park.id === currentParkId ? 'active' : ''}" 
+                     onclick="switchPark('${park.id}')">
+                    <div class="park-option-icon" style="background: ${PARK_CONFIG.parks[park.id].theme.gradient}">
+                        <i class="fas ${park.icon || 'fa-building'}"></i>
+                    </div>
+                    <span>${park.name}</span>
+                    ${park.id === currentParkId ? '<i class="fas fa-check" style="margin-left: auto;"></i>' : ''}
+                </div>
+            `).join('');
+
+            // 切换器点击事件
+            btn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                container.classList.toggle('active');
+            });
+
+            // 点击外部关闭下拉菜单
+            document.addEventListener('click', (e) => {
+                if (!container.contains(e.target)) {
+                    container.classList.remove('active');
+                }
+            });
+        }
+
+        // 页面加载时初始化园区切换器
+        document.addEventListener('DOMContentLoaded', () => {
+            initParkSwitcher();
+        });
     </script>
 </body>
 </html>

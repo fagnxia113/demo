@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>智能助手 - 临港创新智算服务平台</title>
+    <title>OpenClaw - 临港创新智算服务平台</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="config.js"></script>
@@ -22,6 +22,200 @@
             --primary-dark: #2563eb;
             --primary-gradient: linear-gradient(135deg, #3b82f6, #2563eb);
         }
+
+        /* OpenClaw 特有样式 */
+        .openclaw-hero {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 48px 0;
+            text-align: center;
+            border-radius: 16px;
+            margin-bottom: 32px;
+        }
+
+        .openclaw-hero h1 {
+            font-size: 36px;
+            margin-bottom: 16px;
+        }
+
+        .openclaw-hero p {
+            font-size: 18px;
+            opacity: 0.9;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 24px;
+            margin-bottom: 48px;
+        }
+
+        .feature-card {
+            background: white;
+            border-radius: 12px;
+            padding: 24px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            border: 1px solid #e5e7eb;
+            transition: all 0.3s ease;
+        }
+
+        .feature-card:hover {
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+            transform: translateY(-4px);
+        }
+
+        .feature-icon {
+            width: 64px;
+            height: 64px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            color: white;
+            margin-bottom: 16px;
+        }
+
+        .feature-title {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: #1e293b;
+        }
+
+        .feature-desc {
+            color: #64748b;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .terminal-container {
+            background: #0f172a;
+            border-radius: 12px;
+            padding: 24px;
+            margin: 32px 0;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+        }
+
+        .terminal-header {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 16px;
+        }
+
+        .terminal-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+
+        .terminal-content {
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            color: #e2e8f0;
+            line-height: 1.8;
+        }
+
+        .terminal-command {
+            color: #38bdf8;
+        }
+
+        .terminal-output {
+            color: #94a3b8;
+        }
+
+        .badges {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 24px;
+        }
+
+        .badge {
+            padding: 8px 16px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
+            font-size: 14px;
+            backdrop-filter: blur(10px);
+        }
+
+        .platform-grid {
+            display: flex;
+            gap: 24px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 32px;
+        }
+
+        .platform-card {
+            background: linear-gradient(135deg, #f8fafc, #e2e8f0);
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+            min-width: 120px;
+            border: 1px solid #cbd5e1;
+        }
+
+        .platform-icon {
+            font-size: 48px;
+            margin-bottom: 8px;
+        }
+
+        .platform-name {
+            font-weight: 600;
+            color: #475569;
+        }
+
+        .btn-openclaw {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border: none;
+            color: white;
+            padding: 14px 32px;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-openclaw:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
+        }
+
+        .cta-section {
+            background: linear-gradient(135deg, #f8fafc, #e2e8f0);
+            border-radius: 12px;
+            padding: 32px;
+            text-align: center;
+            margin-top: 48px;
+        }
+
+        .cta-section h3 {
+            font-size: 24px;
+            margin-bottom: 16px;
+            color: #1e293b;
+        }
+
+        .cta-section p {
+            color: #64748b;
+            margin-bottom: 24px;
+        }
+
+        @media (max-width: 768px) {
+            .openclaw-hero h1 {
+                font-size: 24px;
+            }
+            
+            .feature-grid,
+            .platform-grid {
+                grid-template-columns: 1fr;
+            }
+        }
     </style>
 </head>
 <body onload="initParkPage()">
@@ -35,10 +229,10 @@
             <nav class="nav" id="mainNav">
                 <a href="index.html" class="nav-item">首页</a>
                 <a href="models.html" class="nav-item" data-feature="models">模型广场</a>
-                <a href="resources.html" class="nav-item" data-feature="resources">优惠资源</a>
-                <a href="agent.html" class="nav-item active" data-feature="agent">智能助手</a>
-                <a href="innovation.html" class="nav-item" data-feature="innovation">创新世界</a>
-                <a href="activities.html" class="nav-item" data-feature="activities">线下活动</a>
+                <a href="resources.html" class="nav-item" data-feature="resources">算力资源</a>
+                <a href="agent.html" class="nav-item active" data-feature="agent">OpenClaw</a>
+                <a href="cross-border.html" class="nav-item" data-feature="cross-border">跨境专线</a>
+                <a href="innovation.html" class="nav-item" data-feature="innovation">创新生态</a>
                 <a href="dashboard.html" class="nav-item">控制台</a>
             </nav>
             <div class="auth-buttons">
@@ -62,93 +256,143 @@
 
     <main class="main-content">
         <div class="container">
-            <h1 class="page-title">智能助手</h1>
-            <p class="page-subtitle">企业服务智能矩阵，24小时在线，快速响应您的需求</p>
-
-            <div class="agent-container">
-                <div class="agent-card policy">
-                    <div class="agent-icon">
-                        <i class="fas fa-landmark"></i>
-                    </div>
-                    <h3>政策问答助手</h3>
-                    <p>实时解读临港及国家相关补贴政策信息，帮助您快速了解和申请各类政策支持</p>
-                    <ul class="agent-features">
-                        <li><i class="fas fa-check"></i> 政策解读</li>
-                        <li><i class="fas fa-check"></i> 补贴申请指导</li>
-                        <li><i class="fas fa-check"></i> 政策匹配分析</li>
-                    </ul>
-                    <button class="btn btn-primary" onclick="startAgentChat('policy')">开始咨询</button>
-                </div>
-
-                <div class="agent-card technique">
-                    <div class="agent-icon">
-                        <i class="fas fa-code"></i>
-                    </div>
-                    <h3>应用技巧助手</h3>
-                    <p>提供AI技术服务指导，帮助您更好地使用平台提供的各类算力和模型资源</p>
-                    <ul class="agent-features">
-                        <li><i class="fas fa-check"></i> API使用指导</li>
-                        <li><i class="fas fa-check"></i> 模型调优建议</li>
-                        <li><i class="fas fa-check"></i> 常见问题解答</li>
-                    </ul>
-                    <button class="btn btn-primary" onclick="startAgentChat('technique')">开始咨询</button>
-                </div>
-
-                <div class="agent-card business">
-                    <div class="agent-icon">
-                        <i class="fas fa-headset"></i>
-                    </div>
-                    <h3>业务咨询助手</h3>
-                    <p>助力企业快速上手平台功能，提供从注册到使用的全流程咨询服务</p>
-                    <ul class="agent-features">
-                        <li><i class="fas fa-check"></i> 账户设置指导</li>
-                        <li><i class="fas fa-check"></i> 资源配置建议</li>
-                        <li><i class="fas fa-check"></i> 账单问题处理</li>
-                    </ul>
-                    <button class="btn btn-primary" onclick="startAgentChat('business')">开始咨询</button>
+            <!-- Hero Section -->
+            <div class="openclaw-hero">
+                <h1>🐣 OpenClaw - 自主AI代理</h1>
+                <p>在您的设备上运行的免费开源AI代理，自动化您的日常工作</p>
+                <div class="badges">
+                    <span class="badge">🌍 自托管</span>
+                    <span class="badge">💰 完全免费</span>
+                    <span class="badge">🔒 数据私密</span>
+                    <span class="badge">📱 多平台支持</span>
                 </div>
             </div>
 
-            <!-- 常见问题区域 -->
-            <div class="faq-section">
-                <h2>常见问题</h2>
-                <div class="faq-list">
-                    <div class="faq-item">
-                        <div class="faq-question">
-                            <i class="fas fa-question-circle"></i>
-                            如何申请政府补贴？
-                        </div>
-                        <div class="faq-answer">
-                            企业使用平台算力资源后，系统会自动记录使用数据和产生账单。每季度末，企业可向园区主账户提交补贴申请，园区汇总后向管委会申报，审核通过后补贴资金将发放到企业账户。企业最高可获得50%的补贴比例。
-                        </div>
+            <!-- Features Grid -->
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-brain"></i>
                     </div>
-                    <div class="faq-item">
-                        <div class="faq-question">
-                            <i class="fas fa-question-circle"></i>
-                            模型API如何调用？
-                        </div>
-                        <div class="faq-answer">
-                            首先，您需要登录控制台获取API密钥。然后在代码中导入对应的SDK，设置请求参数（包括模型名称、输入内容等），最后调用API接口获取返回结果。详细的开发文档请参考"开发者中心"。
-                        </div>
+                    <h3 class="feature-title">智能管理</h3>
+                    <p class="feature-desc">自动管理您的Google日历、Gmail、Notion等应用，智能安排日程、处理邮件、整理文档</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-rss"></i>
                     </div>
-                    <div class="faq-item">
-                        <div class="faq-question">
-                            <i class="fas fa-question-circle"></i>
-                            如何兑换积分？
-                        </div>
-                        <div class="faq-answer">
-                            积分可以通过上传应用程序并让其他用户使用来获得。获得积分后，您可以在控制台的"积分兑换"页面，选择将积分兑换为GPU卡时或tokens，兑换比例根据当前资源定价动态调整。
-                        </div>
+                    <h3 class="feature-title">消息集成</h3>
+                    <p class="feature-desc">发送和接收WhatsApp、Telegram、Discord、Slack等平台的消息，实现跨平台聊天</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-shield-alt"></i>
                     </div>
-                    <div class="faq-item">
-                        <div class="faq-question">
-                            <i class="fas fa-question-circle"></i>
-                            支持哪些支付方式？
-                        </div>
-                        <div class="faq-answer">
-                            平台支持在线支付（支付宝、微信支付）、企业对公转账多种支付方式。企业用户还可以申请月结服务，具体需要联系商务洽谈开通。
-                        </div>
+                    <h3 class="feature-title">完全本地运行</h3>
+                    <p class="feature-desc">所有数据存储在您的本地设备上，不上传任何信息到云服务器，保护您的隐私</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-plug"></i>
                     </div>
+                    <h3 class="feature-title">开放架构</h3>
+                    <p class="feature-desc">支持各类大型语言模型，包括Claude、GPT、Gemini等，自定义您的AI代理行为</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-bolt"></i>
+                    </div>
+                    <h3 class="feature-title">零安装部署</h3>
+                    <p class="feature-desc">一键安装脚本，无需复杂配置，几分钟内即可在您的电脑上运行OpenClaw</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-code"></i>
+                    </div>
+                    <h3 class="feature-title">开源免费</h3>
+                    <p class="feature-desc">完全开源项目，任何人都可以使用、修改和分发，无任何费用</p>
+                </div>
+            </div>
+
+            <!-- Supported Platforms -->
+            <h2 style="text-align: center; margin-bottom: 24px; color: #1e293b;">支持的平台</h2>
+            <div class="platform-grid">
+                <div class="platform-card">
+                    <div class="platform-icon">📱</div>
+                    <div class="platform-name">WhatsApp</div>
+                </div>
+                <div class="platform-card">
+                    <div class="platform-icon">✈️</div>
+                    <div class="platform-name">Telegram</div>
+                </div>
+                <div class="platform-card">
+                    <div class="platform-icon">🎮</div>
+                    <div class="platform-name">Discord</div>
+                </div>
+                <div class="platform-card">
+                    <div class="platform-icon">💬</div>
+                    <div class="platform-name">Slack</div>
+                </div>
+                <div class="platform-card">
+                    <div class="platform-icon">📨</div>
+                    <div class="platform-name">Gmail</div>
+                </div>
+                <div class="platform-card">
+                    <div class="platform-icon">📅</div>
+                    <div class="platform-name">Google Calendar</div>
+                </div>
+            </div>
+
+            <!-- Installation Guide -->
+            <div class="section" style="margin-top: 48px;">
+                <h2 class="section-title">快速安装</h2>
+                
+                <h3 style="color: #1e293b; margin-top: 24px;">Windows / PowerShell</h3>
+                <div class="terminal-container">
+                    <div class="terminal-header">
+                        <div class="terminal-dot" style="background: #ef4444;"></div>
+                        <div class="terminal-dot" style="background: #eab308;"></div>
+                        <div class="terminal-dot" style="background: #22c55e;"></div>
+                    </div>
+                    <div class="terminal-content">
+                        <div><span class="terminal-command">iex "& {$(irm get.scoop.sh)}"</span> <span class="terminal-output"># 安装 Scoop</span></div>
+                        <div><span class="terminal-command">scoop install curl</span> <span class="terminal-output"># 安装 curl</span></div>
+                        <div><span class="terminal-command">curl -fsSL https://openclaw.ai/install | sh</span> <span class="terminal-output"># 安装 OpenClaw</span></div>
+                    </div>
+                </div>
+
+                <h3 style="color: #1e293b; margin-top: 24px;">macOS / Linux</h3>
+                <div class="terminal-container">
+                    <div class="terminal-header">
+                        <div class="terminal-dot" style="background: #ef4444;"></div>
+                        <div class="terminal-dot" style="background: #eab308;"></div>
+                        <div class="terminal-dot" style="background: #22c55e;"></div>
+                    </div>
+                    <div class="terminal-content">
+                        <div><span class="terminal-command">curl -fsSL https://openclaw.ai/install | sh</span> <span class="terminal-output"># Linux / macOS</span></div>
+                        <div><span class="terminal-output">正在安装 OpenClaw...</span></div>
+                        <div><span class="terminal-output">✓ 安装完成！</span></div>
+                        <div><span class="terminal-output">运行 'openclaw' 开始使用</span></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CTA Section -->
+            <div class="cta-section">
+                <h3>🚀 立即体验 OpenClaw</h3>
+                <p>访问官方文档了解更多功能和使用教程，或直接开始安装部署</p>
+                <div style="display: flex; gap: 16px; justify-content: center; flex-wrap: wrap;">
+                    <a href="https://docs.openclaw.ai" target="_blank" class="btn-openclaw">
+                        <i class="fas fa-book"></i> 访问官方文档
+                    </a>
+                    <a href="https://github.com/openclaw/openclaw" target="_blank" class="btn-openclaw">
+                        <i class="fab fa-github"></i> GitHub 仓库
+                    </a>
                 </div>
             </div>
         </div>
@@ -158,37 +402,10 @@
     <footer class="footer">
         <div class="container">
             <div class="footer-bottom">
-                <p>&copy; 2024 临港创新智算服务平台 版权所有</p>
+                <p>&copy; 2024 临港创新智算服务平台 版权所有 | OpenClaw 由 Peter Steinberger 开发</p>
             </div>
         </div>
     </footer>
-
-    <!-- 智能助手聊天窗口 -->
-    <div class="chat-widget" id="chatWidget">
-        <div class="chat-header">
-            <div class="chat-title">
-                <i class="fas fa-robot"></i>
-                <span id="chatAgentName">智能助手</span>
-            </div>
-            <button class="chat-close" onclick="closeChat()">&times;</button>
-        </div>
-        <div class="chat-messages" id="chatMessages">
-            <div class="chat-message agent">
-                <div class="message-avatar">
-                    <i class="fas fa-robot"></i>
-                </div>
-                <div class="message-content">
-                    <p>您好！我是智能助手。请问有什么可以帮助您的？</p>
-                </div>
-            </div>
-        </div>
-        <div class="chat-input-area">
-            <input type="text" id="chatInput" placeholder="请输入您的问题..." onkeypress="handleChatKeypress(event)">
-            <button class="chat-send" onclick="sendMessage()">
-                <i class="fas fa-paper-plane"></i>
-            </button>
-        </div>
-    </div>
 
     <!-- 登录模态框 -->
     <div class="modal" id="loginModal">
@@ -213,12 +430,17 @@
         </div>
     </div>
 
+    <!-- 悬浮聊天按钮 -->
+    <button class="chat-float-btn" id="chatFloatBtn" onclick="toggleChat()">
+        <i class="fas fa-comment-dots"></i>
+    </button>
+
     <script src="script.js"></script>
     <script>
         function initParkPage() {
             const park = initPark();
             if (!park) return;
-            document.title = park.name + ' - 智能助手';
+            document.title = park.name + ' - OpenClaw';
             document.getElementById('siteTitle').textContent = park.name;
             document.querySelectorAll('[data-feature]').forEach(item => {
                 const feature = item.getAttribute('data-feature');

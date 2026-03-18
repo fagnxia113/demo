@@ -68,6 +68,12 @@ function checkPageAuth() {
     const requestedParkId = urlParams.get('park');
 
     if (requestedParkId && requestedParkId !== currentUser.parkId) {
+        // 通用账号：允许访问所有园区
+        if (currentUser.canSwitchParks) {
+            return true;
+        }
+        
+        // 普通账号：只能访问自己所属的园区
         const requestedPark = PARK_CONFIG.parks[requestedParkId];
         const userPark = PARK_CONFIG.parks[currentUser.parkId];
         alert(`您没有权限访问 ${requestedPark.name}\n您只能访问您所属的园区：${userPark.name}`);
@@ -191,7 +197,7 @@ document.getElementById('loginForm')?.addEventListener('submit', (e) => {
     const user = Object.values(USER_ACCOUNTS).find(u => u.username === username && u.password === password);
 
     if (!user) {
-        alert('用户名或密码错误\n\n提示：请使用园区预设账户登录\n例如：keji_demo / demo123');
+        alert('用户名或密码错误\n\n提示：请使用园区预设账户登录\n例如：lingangmofang_demo / demo123');
         return;
     }
 

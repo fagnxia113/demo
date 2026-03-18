@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>优惠资源 - 临港创新智算服务平台</title>
+    <title>算力资源 - 临港创新智算服务平台</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="config.js"></script>
@@ -24,126 +24,266 @@
         }
 
         /* 供应商卡片样式 */
-        .supplier-list {
-            display: flex;
-            flex-direction: column;
-            gap: 24px;
-            margin-top: 24px;
+        .resource-section-title {
+            font-size: 20px;
+            font-weight: 600;
+            color: #1e293b;
+            margin-bottom: 24px;
+            padding-bottom: 12px;
+            border-bottom: 2px solid #e2e8f0;
         }
 
+        /* 供应商切换标签 */
+        .supplier-tabs {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 32px;
+            flex-wrap: wrap;
+        }
+
+        .supplier-tab {
+            padding: 12px 28px;
+            border: 2px solid #e5e7eb;
+            background: white;
+            border-radius: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            color: #64748b;
+            font-size: 15px;
+        }
+
+        .supplier-tab:hover {
+            border-color: #3b82f6;
+            color: #3b82f6;
+        }
+
+        .supplier-tab.active {
+            background: linear-gradient(135deg, #3b82f6, #2563eb);
+            color: white;
+            border-color: transparent;
+        }
+
+        /* 供应商卡片 */
         .supplier-card {
             background: white;
             border-radius: 16px;
-            padding: 0;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-            transition: all 0.3s ease;
-            overflow: hidden;
+            padding: 24px;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
             border: 1px solid #e5e7eb;
         }
 
-        .supplier-card:hover {
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
-            transform: translateY(-4px);
+        .supplier-card.hidden {
+            display: none;
         }
 
-        .supplier-header {
+        .supplier-info {
             display: flex;
             justify-content: space-between;
-            align-items: center;
-            padding: 24px;
-            background: linear-gradient(135deg, #3b82f6, #2563eb);
-            color: white;
+            align-items: start;
+            margin-bottom: 24px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #f1f5f9;
         }
 
-        .supplier-header h3 {
-            margin: 0;
-            font-size: 24px;
-            font-weight: 600;
+        .supplier-name {
             display: flex;
             align-items: center;
             gap: 12px;
         }
 
-        .supplier-header h3::before {
-            content: '🏢';
-            font-size: 28px;
+        .supplier-name h3 {
+            margin: 0;
+            font-size: 22px;
+            font-weight: 700;
+            color: #1e293b;
         }
 
-        .supplier-contact .btn-primary {
-            background: white;
-            color: #3b82f6;
-            border: none;
+        .supplier-icon {
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, #3b82f6, #2563eb);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+        }
+
+        .supplier-actions {
+            display: flex;
+            gap: 12px;
+        }
+
+        .supplier-contact-btn {
             padding: 10px 24px;
+            background: linear-gradient(135deg, #3b82f6, #2563eb);
+            color: white;
+            border: none;
+            border-radius: 8px;
             font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
         }
 
-        .supplier-contact .btn-primary:hover {
-            background: #f8fafc;
+        .supplier-contact-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
         }
 
+        /* 资源类别 */
         .supplier-resources {
-            padding: 24px;
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 24px;
+            gap: 20px;
         }
 
-        .resource-column {
+        .resource-type {
             background: #f8fafc;
             border-radius: 12px;
             padding: 20px;
+            border: 1px solid #f1f5f9;
         }
 
-        .resource-column-title {
+        .resource-type-header {
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 10px;
             margin-bottom: 16px;
             padding-bottom: 12px;
             border-bottom: 2px solid #e2e8f0;
         }
 
-        .resource-column-title h4 {
-            margin: 0;
-            font-size: 16px;
-            font-weight: 600;
-            color: #1e293b;
+        .resource-type-icon {
+            font-size: 22px;
         }
 
-        .resource-column-title::before {
-            content: '';
-            width: 4px;
-            height: 20px;
-            background: linear-gradient(135deg, #3b82f6, #2563eb);
-            border-radius: 2px;
+        .resource-type-title {
+            font-size: 16px;
+            font-weight: 700;
+            color: #1e293b;
+            margin: 0;
+        }
+
+        /* 资源列表 */
+        .resource-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
         }
 
         .resource-item {
+            background: white;
+            border-radius: 8px;
+            padding: 14px 16px;
+            border: 1px solid #e5e7eb;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 12px 0;
-            border-bottom: 1px solid #e2e8f0;
+            transition: all 0.2s;
         }
 
-        .resource-item:last-child {
-            border-bottom: none;
+        .resource-item:hover {
+            border-color: #3b82f6;
+            background: #f0f9ff;
+            transform: translateX(4px);
         }
 
         .resource-item-name {
-            flex: 1;
-            font-size: 14px;
-            color: #475569;
-            font-weight: 500;
+            font-size: 15px;
+            font-weight: 600;
+            color: #334155;
         }
 
         .resource-item-price {
             font-size: 16px;
-            font-weight: 600;
+            font-weight: 700;
             color: #059669;
-            background: #dcfce7;
-            padding: 4px 12px;
+            background: linear-gradient(135deg, #dcfce7, #bbf7d0);
+            padding: 6px 14px;
+            border-radius: 20px;
+            white-space: nowrap;
+        }
+
+        /* 联系信息弹窗 */
+        .contact-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 3000;
+        }
+
+        .contact-modal.active {
+            display: flex;
+        }
+
+        .contact-modal-content {
+            background: white;
+            border-radius: 16px;
+            padding: 32px;
+            max-width: 480px;
+            width: 90%;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
+        }
+
+        .contact-modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .contact-modal-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: #1e293b;
+            margin: 0;
+        }
+
+        .contact-modal-close {
+            background: none;
+            border: none;
+            font-size: 32px;
+            cursor: pointer;
+            color: #64748b;
+        }
+
+        .contact-modal-item {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 14px 0;
+            border-bottom: 1px solid #f1f5f9;
+        }
+
+        .contact-modal-item:last-child {
+            border-bottom: none;
+        }
+
+        .contact-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #3b82f6, #2563eb);
             border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 16px;
+            flex-shrink: 0;
+        }
+
+        .contact-info-text {
+            font-size: 15px;
+            color: #475569;
         }
 
         @media (max-width: 1024px) {
@@ -180,10 +320,10 @@
             <nav class="nav" id="mainNav">
                 <a href="index.html" class="nav-item">首页</a>
                 <a href="models.html" class="nav-item" data-feature="models">模型广场</a>
-                <a href="resources.html" class="nav-item active" data-feature="resources">优惠资源</a>
-                <a href="agent.html" class="nav-item" data-feature="agent">智能助手</a>
-                <a href="innovation.html" class="nav-item" data-feature="innovation">创新世界</a>
-                <a href="activities.html" class="nav-item" data-feature="activities">线下活动</a>
+                <a href="resources.html" class="nav-item active" data-feature="resources">算力资源</a>
+                <a href="agent.html" class="nav-item" data-feature="agent">OpenClaw</a>
+                <a href="cross-border.html" class="nav-item" data-feature="cross-border">跨境专线</a>
+                <a href="innovation.html" class="nav-item" data-feature="innovation">创新生态</a>
                 <a href="dashboard.html" class="nav-item">控制台</a>
             </nav>
             <div class="auth-buttons">
@@ -207,251 +347,32 @@
 
     <main class="main-content">
         <div class="container">
-            <h1 class="page-title">优惠资源池</h1>
-            <p class="page-subtitle">按卡时计费的弹性算力服务，批量采购优势惠及园区企业</p>
-
-            <div class="resource-type-switch">
-                <button class="resource-btn active" data-type="experience">限时体验</button>
-                <button class="resource-btn" data-type="single">单卡服务</button>
-                <button class="resource-btn" data-type="multi">多卡服务</button>
-                <button class="resource-btn" data-type="suppliers">供应商资源</button>
-            </div>
-
-            <!-- 限时体验区 -->
-            <div class="resource-content active" id="resources-experience">
-                <h3 class="resource-section-title">限时体验区（最新模型）</h3>
-                <div class="resource-cards">
-                    <div class="resource-card recommend">
-                        <div class="resource-badge">高性价比</div>
-                        <div class="resource-header">
-                            <h3>高性价比</h3>
-                            <span class="resource-price">¥1.35<span class="unit">/卡时</span></span>
-                        </div>
-                        <div class="resource-specs">
-                            <div class="spec-row">
-                                <span>CPU</span>
-                                <span>8核</span>
-                            </div>
-                            <div class="spec-row">
-                                <span>内存</span>
-                                <span>16G</span>
-                            </div>
-                            <div class="spec-row">
-                                <span>显存</span>
-                                <span>24G</span>
-                            </div>
-                            <div class="spec-row">
-                                <span>储存</span>
-                                <span>20G</span>
-                            </div>
-                            <div class="spec-row highlight">
-                                <span>算力</span>
-                                <span>71 TFlops</span>
-                            </div>
-                        </div>
-                        <button class="btn btn-primary btn-block" onclick="orderResource('高性价比')">立即预订</button>
-                    </div>
-
-                    <div class="resource-card">
-                        <div class="resource-badge">入门首选</div>
-                        <div class="resource-header">
-                            <h3>入门首选</h3>
-                            <span class="resource-price">¥0.90<span class="unit">/卡时</span></span>
-                        </div>
-                        <div class="resource-specs">
-                            <div class="spec-row">
-                                <span>CPU</span>
-                                <span>8核</span>
-                            </div>
-                            <div class="spec-row">
-                                <span>内存</span>
-                                <span>16G</span>
-                            </div>
-                            <div class="spec-row">
-                                <span>显存</span>
-                                <span>12G</span>
-                            </div>
-                            <div class="spec-row">
-                                <span>存储</span>
-                                <span>20G</span>
-                            </div>
-                            <div class="spec-row highlight">
-                                <span>算力</span>
-                                <span>24 TFlops</span>
-                            </div>
-                        </div>
-                        <button class="btn btn-secondary btn-block" onclick="orderResource('入门首选')">立即预订</button>
-                    </div>
-
-                    <div class="resource-card">
-                        <div class="resource-badge">高性能</div>
-                        <div class="resource-header">
-                            <h3>高性能</h3>
-                            <span class="resource-price">¥2.70<span class="unit">/卡时</span></span>
-                        </div>
-                        <div class="resource-specs">
-                            <div class="spec-row">
-                                <span>CPU</span>
-                                <span>8核</span>
-                            </div>
-                            <div class="spec-row">
-                                <span>内存</span>
-                                <span>16G</span>
-                            </div>
-                            <div class="spec-row">
-                                <span>显存</span>
-                                <span>24G</span>
-                            </div>
-                            <div class="spec-row">
-                                <span>存储</span>
-                                <span>20G</span>
-                            </div>
-                            <div class="spec-row highlight">
-                                <span>算力</span>
-                                <span>165 TFlops</span>
-                            </div>
-                        </div>
-                        <button class="btn btn-secondary btn-block" onclick="orderResource('高性能')">立即预订</button>
-                    </div>
-
-                    <div class="resource-card">
-                        <div class="resource-badge">超高性能</div>
-                        <div class="resource-header">
-                            <h3>超高性能</h3>
-                            <span class="resource-price">¥13.6<span class="unit">/卡时</span></span>
-                        </div>
-                        <div class="resource-specs">
-                            <div class="spec-row">
-                                <span>CPU</span>
-                                <span>22核</span>
-                            </div>
-                            <div class="spec-row">
-                                <span>内存</span>
-                                <span>184G</span>
-                            </div>
-                            <div class="spec-row">
-                                <span>显存</span>
-                                <span>64G</span>
-                            </div>
-                            <div class="spec-row">
-                                <span>存储</span>
-                                <span>20G</span>
-                            </div>
-                            <div class="spec-row highlight">
-                                <span>算力</span>
-                                <span>313 TFlops</span>
-                            </div>
-                        </div>
-                        <button class="btn btn-secondary btn-block" onclick="orderResource('超高性能')">立即预订</button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- 单卡服务 -->
-            <div class="resource-content" id="resources-single">
-                <h3 class="resource-section-title">智算单卡服务</h3>
-                <div class="pricing-table">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>规格</th>
-                                <th>单卡算力</th>
-                                <th>单卡显存</th>
-                                <th>价格</th>
-                                <th>操作</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>8C 16G 1卡</td>
-                                <td>24 TFlops</td>
-                                <td>12G</td>
-                                <td class="price">¥2.81<span class="unit">/小时</span></td>
-                                <td><button class="btn btn-small btn-primary" onclick="orderResource('8C 16G 1卡')">预订</button></td>
-                            </tr>
-                            <tr class="highlight">
-                                <td>8C 16G 1卡</td>
-                                <td>71 TFlops</td>
-                                <td>24G</td>
-                                <td class="price">¥4.08<span class="unit">/小时</span></td>
-                                <td><button class="btn btn-small btn-primary" onclick="orderResource('8C 16G 1卡-中配')">预订</button></td>
-                            </tr>
-                            <tr>
-                                <td>8C 16G 1卡</td>
-                                <td>165 TFlops</td>
-                                <td>24G</td>
-                                <td class="price">¥4.63<span class="unit">/小时</span></td>
-                                <td><button class="btn btn-small btn-primary" onclick="orderResource('8C 16G 1卡-高配')">预订</button></td>
-                            </tr>
-                            <tr>
-                                <td>22C 184G 1卡</td>
-                                <td>313 TFlops</td>
-                                <td>64G</td>
-                                <td class="price">¥27.12<span class="unit">/小时</span></td>
-                                <td><button class="btn btn-small btn-primary" onclick="orderResource('22C 184G 1卡')">预订</button></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-
-            <!-- 多卡服务 -->
-            <div class="resource-content" id="resources-multi">
-                <h3 class="resource-section-title">智算多卡服务</h3>
-                <div class="pricing-table">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>规格</th>
-                                <th>单卡算力</th>
-                                <th>单卡显存</th>
-                                <th>价格</th>
-                                <th>操作</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>44C 368G 2卡</td>
-                                <td>313 TFlops</td>
-                                <td>64G</td>
-                                <td class="price">¥54.24<span class="unit">/小时</span></td>
-                                <td><button class="btn btn-small btn-primary" onclick="orderResource('44C 368G 2卡')">预订</button></td>
-                            </tr>
-                            <tr>
-                                <td>88C 736G 4卡</td>
-                                <td>313 TFlops</td>
-                                <td>64G</td>
-                                <td class="price">¥108.48<span class="unit">/小时</span></td>
-                                <td><button class="btn btn-small btn-primary" onclick="orderResource('88C 736G 4卡')">预订</button></td>
-                            </tr>
-                            <tr>
-                                <td>176C 1472G 8卡</td>
-                                <td>313 TFlops</td>
-                                <td>64G</td>
-                                <td class="price">¥216.96<span class="unit">/小时</span></td>
-                                <td><button class="btn btn-small btn-primary" onclick="orderResource('176C 1472G 8卡')">预订</button></td>
-                            </tr>
-                            <tr>
-                                <td>352C 2944G 16卡</td>
-                                <td>313 TFlops</td>
-                                <td>64G</td>
-                                <td class="price">¥433.92<span class="unit">/小时</span></td>
-                                <td><button class="btn btn-small btn-primary" onclick="orderResource('352C 2944G 16卡')">预订</button></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
+            <h1 class="page-title">算力资源</h1>
+            <p class="page-subtitle">供应商资源池，批量采购优势惠及园区企业</p>
 
             <!-- 供应商资源 -->
-            <div class="resource-content" id="resources-suppliers">
+            <div class="resource-content active" id="resources-suppliers">
                 <h3 class="resource-section-title">供应商资源池</h3>
+                <div id="supplierTabs" class="supplier-tabs">
+                    <!-- 由 JavaScript 动态生成供应商标签 -->
+                </div>
                 <div id="supplierList" class="supplier-list">
-                    <!-- 由 JavaScript 动态填充 -->
+                    <!-- 由 JavaScript 动态填充供应商卡片 -->
                 </div>
             </div>
         </div>
     </main>
+
+    <!-- 联系信息弹窗 -->
+    <div class="contact-modal" id="contactModal">
+        <div class="contact-modal-content">
+            <div class="contact-modal-header">
+                <h4 class="contact-modal-title">联系供应商</h4>
+                <button class="contact-modal-close" onclick="closeContactModal()">&times;</button>
+            </div>
+            <div id="contactModalBody"></div>
+        </div>
+    </div>
 
     <!-- 页脚 -->
     <footer class="footer">
@@ -504,45 +425,70 @@
 
             // 渲染供应商资源
             renderSuppliers();
+        }
 
-            // 绑定资源类型切换事件
-            document.querySelectorAll('.resource-btn').forEach(btn => {
-                btn.addEventListener('click', function() {
-                    document.querySelectorAll('.resource-btn').forEach(b => b.classList.remove('active'));
+        function renderSuppliers() {
+            const tabsContainer = document.getElementById('supplierTabs');
+            const listContainer = document.getElementById('supplierList');
+            if (!tabsContainer || !listContainer) return;
+
+            if (!RESOURCE_SUPPLIERS || Object.keys(RESOURCE_SUPPLIERS).length === 0) {
+                listContainer.innerHTML = '<p style="text-align:center;color:#666;padding:40px;">暂无供应商数据</p>';
+                return;
+            }
+
+            const supplierIds = Object.keys(RESOURCE_SUPPLIERS);
+            let currentSupplier = supplierIds[0];
+
+            // 生成供应商标签页
+            const tabsHtml = supplierIds.map((id, index) => {
+                const supplier = RESOURCE_SUPPLIERS[id];
+                return `
+                    <button class="supplier-tab ${index === 0 ? 'active' : ''}" data-id="${id}" onclick="switchSupplier('${id}')">
+                        ${supplier.name}
+                    </button>
+                `;
+            }).join('');
+            tabsContainer.innerHTML = tabsHtml;
+
+            // 生成供应商卡片
+            renderSupplierCard(currentSupplier);
+
+            // 绑定标签页点击事件
+            document.querySelectorAll('.supplier-tab').forEach(tab => {
+                tab.addEventListener('click', function() {
+                    document.querySelectorAll('.supplier-tab').forEach(t => t.classList.remove('active'));
                     this.classList.add('active');
-                    
-                    document.querySelectorAll('.resource-content').forEach(content => {
-                        content.classList.remove('active');
-                    });
-                    
-                    const type = this.dataset.type;
-                    document.getElementById('resources-' + type).classList.add('active');
+                    switchSupplier(this.dataset.id);
                 });
             });
         }
 
-        function renderSuppliers() {
+        function switchSupplier(supplierId) {
+            renderSupplierCard(supplierId);
+        }
+
+        function renderSupplierCard(supplierId) {
             const container = document.getElementById('supplierList');
             if (!container) return;
 
-            if (!RESOURCE_SUPPLIERS) {
-                container.innerHTML = '<p style="text-align:center;color:#666;padding:40px;">暂无供应商数据</p>';
-                return;
-            }
+            const supplier = RESOURCE_SUPPLIERS[supplierId];
+            if (!supplier) return;
 
-            const suppliersHtml = Object.entries(RESOURCE_SUPPLIERS).map(([id, supplier]) => {
-                const columnsHtml = [
-                    { type: 'servers', label: '算力服务器', icon: '💻' },
-                    { type: '专线', label: '市内专线', icon: '🔗' },
-                    { type: '机柜', label: 'IDC机柜租赁', icon: '🏢' }
-                ].map(({ type, label, icon }) => {
-                    const items = supplier.resources[type] || [];
-                    if (items.length === 0) return '';
-                    return `
-                        <div class="resource-column">
-                            <div class="resource-column-title">
-                                <h4>${icon} ${label}</h4>
-                            </div>
+            const resourceTypesHtml = [
+                { type: 'servers', label: '算力服务器', icon: '💻' },
+                { type: '专线', label: '市内专线', icon: '🔗' },
+                { type: '机柜', label: 'IDC机柜租赁', icon: '🏢' }
+            ].map(({ type, label, icon }) => {
+                const items = supplier.resources[type] || [];
+                if (items.length === 0) return '';
+                return `
+                    <div class="resource-type">
+                        <div class="resource-type-header">
+                            <span class="resource-type-icon">${icon}</span>
+                            <h4 class="resource-type-title">${label}</h4>
+                        </div>
+                        <div class="resource-list">
                             ${items.map(item => `
                                 <div class="resource-item">
                                     <span class="resource-item-name">${item.name}</span>
@@ -550,50 +496,89 @@
                                 </div>
                             `).join('')}
                         </div>
-                    `;
-                }).join('');
-
-                return `
-                    <div class="supplier-card" data-id="${id}">
-                        <div class="supplier-header">
-                            <h3>${supplier.name}</h3>
-                            <div class="supplier-contact">
-                                <button class="btn btn-primary" onclick="showSupplierContact('${id}')">立即联系</button>
-                            </div>
-                        </div>
-                        <div class="supplier-resources">
-                            ${columnsHtml}
-                        </div>
                     </div>
                 `;
             }).join('');
 
-            container.innerHTML = suppliersHtml;
+            const cardHtml = `
+                <div class="supplier-card" data-id="${supplierId}">
+                    <div class="supplier-info">
+                        <div class="supplier-name">
+                            <div class="supplier-icon">
+                                <i class="fas fa-building"></i>
+                            </div>
+                            <h3>${supplier.name}</h3>
+                        </div>
+                        <div class="supplier-actions">
+                            <button class="supplier-contact-btn" onclick="showSupplierContact('${supplierId}')">
+                                <i class="fas fa-phone"></i> 立即联系
+                            </button>
+                        </div>
+                    </div>
+                    <div class="supplier-resources">
+                        ${resourceTypesHtml}
+                    </div>
+                </div>
+            `;
+
+            container.innerHTML = cardHtml;
         }
 
         function showSupplierContact(supplierId) {
             const supplier = RESOURCE_SUPPLIERS[supplierId];
             if (!supplier) return;
 
+            const modal = document.getElementById('contactModal');
+            const modalBody = document.getElementById('contactModalBody');
+
+            if (!modal || !modalBody) return;
+
             const contactHtml = `
-                <div class="modal-contact-info">
-                    <h4>${supplier.name}</h4>
-                    <div class="contact-item">
+                <div class="contact-modal-item">
+                    <div class="contact-icon">
                         <i class="fas fa-phone"></i>
-                        <span>${supplier.contact.phone}</span>
                     </div>
-                    <div class="contact-item">
+                    <div class="contact-info-text">
+                        <strong>电话</strong><br>
+                        ${supplier.contact.phone}
+                    </div>
+                </div>
+                <div class="contact-modal-item">
+                    <div class="contact-icon">
                         <i class="fas fa-envelope"></i>
-                        <span>${supplier.contact.email}</span>
                     </div>
-                    <div class="contact-item">
+                    <div class="contact-info-text">
+                        <strong>邮箱</strong><br>
+                        ${supplier.contact.email}
+                    </div>
+                </div>
+                <div class="contact-modal-item">
+                    <div class="contact-icon">
                         <i class="fas fa-map-marker-alt"></i>
-                        <span>${supplier.contact.address}</span>
+                    </div>
+                    <div class="contact-info-text">
+                        <strong>地址</strong><br>
+                        ${supplier.contact.address}
                     </div>
                 </div>
             `;
 
-            alert(`${supplier.name}\n\n电话: ${supplier.contact.phone}\n邮箱: ${supplier.contact.email}\n地址: ${supplier.contact.address}`);
+            modalBody.innerHTML = contactHtml;
+            modal.classList.add('active');
+
+            // 点击弹窗背景关闭
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) {
+                    closeContactModal();
+                }
+            });
+        }
+
+        function closeContactModal() {
+            const modal = document.getElementById('contactModal');
+            if (modal) {
+                modal.classList.remove('active');
+            }
         }
     </script>
 </body>

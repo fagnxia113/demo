@@ -2,41 +2,9 @@
  * 临港创新智算服务平台 - 身份验证和账户管理
  */
 
-// 预设用户账户（园区管理员/企业账户）
+// 预设用户账户（保留3个园区 + 1个通用账号）
 const USER_ACCOUNTS = {
-    // 科技城园区账户
-    keji_demo: {
-        username: 'keji_demo',
-        password: 'demo123',
-        parkId: 'keji',
-        companyName: '科技城示范企业',
-        role: 'enterprise'
-    },
-    keji_admin: {
-        username: 'keji_admin',
-        password: 'admin123',
-        parkId: 'keji',
-        companyName: '科技城园区运营方',
-        role: 'admin'
-    },
-
-    // 影视基地园区账户
-    yingshi_demo: {
-        username: 'yingshi_demo',
-        password: 'demo123',
-        parkId: 'yingshi',
-        companyName: '影视制作公司',
-        role: 'enterprise'
-    },
-    yingshi_admin: {
-        username: 'yingshi_admin',
-        password: 'admin123',
-        parkId: 'yingshi',
-        companyName: '影视基地运营方',
-        role: 'admin'
-    },
-
-    // 零界魔方园区账户
+    // 零界魔方OPC社区账户
     lingangmofang_demo: {
         username: 'lingangmofang_demo',
         password: 'demo123',
@@ -44,15 +12,17 @@ const USER_ACCOUNTS = {
         companyName: 'AI应用初创企业',
         role: 'enterprise'
     },
-    lingangmofang_admin: {
-        username: 'lingangmofang_admin',
-        password: 'admin123',
-        parkId: 'lingangmofang',
-        companyName: '零界魔方运营方',
-        role: 'admin'
+
+    // 东方明珠影视基地账户
+    yingshi_demo: {
+        username: 'yingshi_demo',
+        password: 'demo123',
+        parkId: 'yingshi',
+        companyName: '影视制作公司',
+        role: 'enterprise'
     },
 
-    // AI创新港账户
+    // 滴水湖AI创新港账户
     aiinnovation_demo: {
         username: 'aiinnovation_demo',
         password: 'demo123',
@@ -60,60 +30,15 @@ const USER_ACCOUNTS = {
         companyName: '大模型研发公司',
         role: 'enterprise'
     },
-    aiinnovation_admin: {
-        username: 'aiinnovation_admin',
-        password: 'admin123',
-        parkId: 'aiinnovation',
-        companyName: 'AI创新港运营方',
-        role: 'admin'
-    },
 
-    // IC创新港账户
-    icinnovation_demo: {
-        username: 'icinnovation_demo',
+    // 临港新片区通用平台账户（可切换所有园区）
+    lingang_demo: {
+        username: 'lingang_demo',
         password: 'demo123',
-        parkId: 'icinnovation',
-        companyName: '芯片设计公司',
-        role: 'enterprise'
-    },
-    icinnovation_admin: {
-        username: 'icinnovation_admin',
-        password: 'admin123',
-        parkId: 'icinnovation',
-        companyName: 'IC创新港运营方',
-        role: 'admin'
-    },
-
-    // 国际数据港账户
-    dataharbor_demo: {
-        username: 'dataharbor_demo',
-        password: 'demo123',
-        parkId: 'dataharbor',
-        companyName: '数据服务企业',
-        role: 'enterprise'
-    },
-    dataharbor_admin: {
-        username: 'dataharbor_admin',
-        password: 'admin123',
-        parkId: 'dataharbor',
-        companyName: '国际数据港运营方',
-        role: 'admin'
-    },
-
-    // 金融湾账户
-    financialbay_demo: {
-        username: 'financialbay_demo',
-        password: 'demo123',
-        parkId: 'financialbay',
-        companyName: '金融科技公司',
-        role: 'enterprise'
-    },
-    financialbay_admin: {
-        username: 'financialbay_admin',
-        password: 'admin123',
-        parkId: 'financialbay',
-        companyName: '金融湾运营方',
-        role: 'admin'
+        parkId: 'unified',
+        companyName: '临港新片区通用平台',
+        role: 'super_admin',
+        canSwitchParks: true
     }
 };
 
@@ -137,6 +62,19 @@ function setCurrentUser(user) {
  */
 function clearCurrentUser() {
     sessionStorage.removeItem('currentUser');
+}
+
+/**
+ * 根据凭证设置用户
+ */
+function setUserByCredentials(username, password, parkId) {
+    const user = USER_ACCOUNTS[username];
+    if (user && user.password === password) {
+        setCurrentUser(user);
+        window.location.href = 'home.html?park=' + parkId;
+    } else {
+        alert('登录失败：用户名或密码错误');
+    }
 }
 
 /**
@@ -195,15 +133,78 @@ function updateNavLinks(park) {
     });
 }
 
+/**
+ * 切换当前园区（仅限有切换权限的用户）
+ * @param {string} parkId - 目标园区ID
+ */
+function switchPark(parkId) {
+    const currentUser = checkAuthStatus();
+    
+    if (!currentUser) {
+        alert('请先登录');
+        window.location.href = 'login.html';
+        return false;
+    }
+
+    // 检查是否有切换园区的权限
+    if (!currentUser.canSwitchParks) {
+        const currentPark = PARK_CONFIG.parks[currentUser.parkId];
+        if (currentPark) {
+            alert(`您当前所属园区是：${currentPark.name}\n\n只有通用平台账号可以自由切换园区`);
+        }
+        return false;
+    }
+
+    // 检查目标园区是否存在
+    if (!PARK_CONFIG.parks[parkId]) {
+        alert('目标园区不存在');
+        return false;
+    }
+
+    // 切换到目标园区
+    const currentPage = window.location.pathname.split('/').pop();
+    const newUrl = `${currentPage}?park=${parkId}`;
+    window.location.href = newUrl;
+    
+    return true;
+}
+
+/**
+ * 获取所有可切换的园区列表（供UI使用）
+ */
+function getSwitchableParks() {
+    if (typeof PARK_CONFIG === 'undefined') {
+        return [];
+    }
+
+    return Object.values(PARK_CONFIG.parks).map(park => ({
+        id: park.id,
+        name: park.name,
+        icon: park.icon
+    }));
+}
+
+/**
+ * 检查当前用户是否有切换园区的权限
+ */
+function canUserSwitchParks() {
+    const currentUser = checkAuthStatus();
+    return currentUser && currentUser.canSwitchParks === true;
+}
+
 // 将函数和用户账户暴露到全局作用域
 window.USER_ACCOUNTS = USER_ACCOUNTS;
 window.checkAuthStatus = checkAuthStatus;
 window.setCurrentUser = setCurrentUser;
 window.clearCurrentUser = clearCurrentUser;
+window.setUserByCredentials = setUserByCredentials;
 window.getCurrentPark = getCurrentPark;
 window.initPark = initPark;
 window.applyParkTheme = applyParkTheme;
 window.updateNavLinks = updateNavLinks;
+window.switchPark = switchPark;
+window.getSwitchableParks = getSwitchableParks;
+window.canUserSwitchParks = canUserSwitchParks;
 
 console.log('auth.js loaded successfully');
-console.log('User accounts count:', Object.keys(USER_ACCOUNTS).length);
+console.log('Available accounts:', Object.keys(USER_ACCOUNTS));

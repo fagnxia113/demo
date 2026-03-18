@@ -52,212 +52,19 @@ const RESOURCE_SUPPLIERS = {
             email: 'business@sh.telecom.cn',
             address: '上海市浦东新区...'
         }
-    },
-    'sensetime': {
-        name: '商汤科技',
-        resources: {
-            servers: [
-                { name: 'A100', price: '9000' },
-                { name: 'A800', price: '17000' },
-                { name: 'H100', price: '16000' },
-                { name: 'H800', price: '19000' }
-            ],
-            专线: [
-                { name: '10G', price: '120000' },
-                { name: '公网与安全服务', price: '50000' }
-            ],
-            机柜: [
-                { name: '7KW', price: '6500' },
-                { name: '10KW', price: '8500' }
-            ]
-        },
-        contact: {
-            phone: '400-888-0003',
-            email: 'ai-service@sensetime.com',
-            address: '上海市徐汇区...'
-        }
-    },
-    'chengdi': {
-        name: '城地香江',
-        resources: {
-            servers: [
-                { name: '910B', price: '4000' },
-                { name: '4070ti', price: '3400' },
-                { name: 'H20', price: '13000' },
-                { name: 'H800', price: '17500' }
-            ],
-            专线: [
-                { name: '500M', price: '28000' },
-                { name: '50M', price: '7500' }
-            ],
-            机柜: [
-                { name: '6KW', price: '4800' },
-                { name: '7KW', price: '5800' },
-                { name: '10KW', price: '7800' }
-            ]
-        },
-        contact: {
-            phone: '400-888-0004',
-            email: 'data@chengdi.com',
-            address: '上海市浦东新区...'
-        }
-    },
-    'shanghailiantong': {
-        name: '上海联通',
-        resources: {
-            servers: [
-                { name: '4090', price: '4400' },
-                { name: 'A100', price: '8700' },
-                { name: 'H100', price: '15500' },
-                { name: 'H200', price: '19500' }
-            ],
-            专线: [
-                { name: '10G', price: '90000' },
-                { name: '跨境专线', price: '280000' },
-                { name: '公网与安全服务', price: '45000' }
-            ],
-            机柜: [
-                { name: '6KW', price: '5200' },
-                { name: '10KW', price: '7800' },
-                { name: '12KW', price: '8800' }
-            ]
-        },
-        contact: {
-            phone: '400-888-0005',
-            email: 'enterprise@sh.unicom.cn',
-            address: '上海市静安区...'
-        }
-    },
-    'shanghaimobile': {
-        name: '上海移动',
-        resources: {
-            servers: [
-                { name: '4070ti', price: '3300' },
-                { name: '4090', price: '4300' },
-                { name: '910B', price: '3900' },
-                { name: 'A800', price: '15800' }
-            ],
-            专线: [
-                { name: '10G', price: '85000' },
-                { name: '500M', price: '29000' },
-                { name: '跨境专线', price: '260000' }
-            ],
-            机柜: [
-                { name: '7KW', price: '5700' },
-                { name: '10KW', price: '7700' },
-                { name: '12KW', price: '8700' }
-            ]
-        },
-        contact: {
-            phone: '400-888-0006',
-            email: 'idc@sh.chinamobile.com',
-            address: '上海市虹口区...'
-        }
     }
 };
 
 const PARK_CONFIG = {
     // 默认园区（无参数时使用）
-    default: 'keji',
+    default: 'lingangmofang',
 
     // 园区列表
     parks: {
-        // 科技城园区 - 聚焦科技创新与研发
-        keji: {
-            id: 'keji',
-            name: '科技城园区',
-            shortName: '科技城',
-            icon: 'fa-flask',
-            theme: {
-                primary: '#3b82f6',
-                primaryDark: '#2563eb',
-                gradient: 'linear-gradient(135deg, #3b82f6, #2563eb)'
-            },
-            features: {
-                models: true,
-                resources: true,
-                agent: true,
-                innovation: true,
-                activities: true
-            },
-            hero: {
-                title: '赋能临港企业数字化转型升级',
-                subtitle: '普惠、高效、灵活的算力服务一站式解决方案'
-            },
-            stats: {
-                companies: '500+',
-                gpus: '1000+',
-                availability: '99.9%',
-                subsidy: '50%'
-            },
-            description: '聚焦科技创新与研发，提供高性能算力支持',
-            // 科技城特色模型 - 偏重研发、编程、通用AI能力
-            models: [
-                { name: 'DeepSeek V3.2', desc: '深度求索最新旗舰模型，强化Agent能力，融入思考推理，编程与推理能力卓越', context: '128K', price: '¥0.01/1K tokens', tags: ['nlp', 'multi'], badge: 'hot' },
-                { name: 'DeepSeek R1', desc: '深度求索推理模型，擅长复杂逻辑推理与数学问题求解', context: '64K', price: '¥0.02/1K tokens', tags: ['nlp', 'multi'], badge: 'new' },
-                { name: 'Qwen3-Max', desc: '阿里通义旗舰模型，全能至强，超万亿参数规模预训练', context: '128K', price: '¥0.02/1K tokens', tags: ['nlp', 'multi'], badge: 'recommend' },
-                { name: 'GLM-5', desc: '智谱AI旗舰模型，面向Agentic Engineering，擅长复杂系统工程与长程Agent任务', context: '128K', price: '¥0.015/1K tokens', tags: ['nlp', 'multi'], badge: 'hot' },
-                { name: 'Qwen3-Coder-Plus', desc: '通义代码专用模型，代码与Agent能力突出', context: '64K', price: '¥0.01/1K tokens', tags: ['nlp'], badge: 'recommend' },
-                { name: '豆包视频生成模型2.0', desc: '字节跳动最新视频生成模型，支持高保真4K视频生成，智能镜头控制', context: '4K视频', price: '¥0.80/次', tags: ['video', 'multi'], badge: 'hot' },
-                { name: '豆包实时语音模型', desc: '字节跳动实时语音交互模型，极速响应，自然流畅', context: '实时交互', price: '¥0.10/分钟', tags: ['audio'], badge: 'new' },
-                { name: '豆包音乐模型', desc: '字节跳动AI音乐生成模型，支持多风格音乐创作与编曲', context: '专业级', price: '¥0.25/首', tags: ['audio', 'multi'], badge: 'recommend' },
-                { name: '豆包语音合成模型2.0', desc: '字节跳动语音合成模型升级版，超拟人语音，情感表达丰富', context: '语音合成', price: '¥0.012/分钟', tags: ['audio'], badge: 'hot' },
-                { name: '豆包角色扮演模型', desc: '字节跳动角色扮演专用模型，支持多角色演绎与场景对话', context: '128K', price: '¥0.015/1K tokens', tags: ['nlp', 'multi'], badge: 'new' },
-                { name: 'YOLOv8', desc: '实时目标检测模型，支持多种物体识别与定位任务', context: '实时检测', price: '¥0.005/次', tags: ['cv'], badge: '' },
-                { name: 'GLM-OCR', desc: '智谱轻量专业OCR模型，复杂文档解析又准又省', context: '文档解析', price: '¥0.008/页', tags: ['cv'], badge: 'recommend' }
-            ]
-        },
-
-        // 影视基地园区 - 专注数字内容创作
-        yingshi: {
-            id: 'yingshi',
-            name: '影视基地园区',
-            shortName: '影视基地',
-            icon: 'fa-film',
-            theme: {
-                primary: '#f59e0b',
-                primaryDark: '#d97706',
-                gradient: 'linear-gradient(135deg, #f59e0b, #d97706)'
-            },
-            features: {
-                models: true,
-                resources: true,
-                agent: true,
-                innovation: false,
-                activities: true
-            },
-            hero: {
-                title: '赋能数字内容创作',
-                subtitle: '渲染算力与AI辅助工具，加速影视制作流程'
-            },
-            stats: {
-                companies: '200+',
-                gpus: '500+',
-                availability: '99.9%',
-                subsidy: '40%'
-            },
-            description: '专注数字内容创作，提供渲染算力与AI辅助工具',
-            // 影视基地特色模型 - 偏重视频、图像、音频创作
-            models: [
-                { name: '可灵 2.6', desc: '快手新一代AI创意生产力平台，支持视频生成、图片生成、动作控制、数字人等', context: '4K视频', price: '¥0.50/次', tags: ['video', 'multi'], badge: 'hot' },
-                { name: 'Wan2.6-T2V', desc: '通义万相视频生成模型，自然音画同步，智能多镜头叙事', context: '高清视频', price: '¥0.60/次', tags: ['video', 'multi'], badge: 'new' },
-                { name: 'Wan2.6-I2V', desc: '通义图生视频模型，智能多镜头叙事，角色一致性保持', context: '视频生成', price: '¥0.55/次', tags: ['video', 'multi'], badge: 'recommend' },
-                { name: '豆包视频生成模型2.0', desc: '字节跳动最新视频生成模型，支持高保真4K视频生成，智能镜头控制', context: '4K视频', price: '¥0.80/次', tags: ['video', 'multi'], badge: 'hot' },
-                { name: '豆包实时语音模型', desc: '字节跳动实时语音交互模型，极速响应，自然流畅', context: '实时交互', price: '¥0.10/分钟', tags: ['audio'], badge: 'new' },
-                { name: '豆包音乐模型', desc: '字节跳动AI音乐生成模型，支持多风格音乐创作与编曲', context: '专业级', price: '¥0.25/首', tags: ['audio', 'multi'], badge: 'recommend' },
-                { name: '豆包语音合成模型2.0', desc: '字节跳动语音合成模型升级版，超拟人语音，情感表达丰富', context: '语音合成', price: '¥0.012/分钟', tags: ['audio'], badge: 'hot' },
-                { name: 'Midjourney V6', desc: '顶尖AI绘画工具，生成专业级影视概念图与海报', context: '专业级', price: '¥0.50/张', tags: ['cv', 'multi'], badge: 'hot' },
-                { name: 'GLM-Image', desc: '智谱图像生成模型，文字渲染开源SOTA，海报科普图表现佳', context: '图文混排', price: '¥0.03/张', tags: ['cv', 'multi'], badge: 'recommend' },
-                { name: 'Wan2.6-T2I', desc: '通义文生图模型，强大的指令遵循能力', context: '高清输出', price: '¥0.04/张', tags: ['cv', 'multi'], badge: 'recommend' },
-                { name: 'CosyVoice-V3', desc: '通义语音合成模型，超拟人语音，塑造生动自然的听觉体验', context: '语音合成', price: '¥0.015/分钟', tags: ['audio'], badge: 'new' },
-                { name: 'Suno AI', desc: 'AI音乐生成，支持影视配乐与音效创作', context: '音乐生成', price: '¥0.20/首', tags: ['audio', 'multi'], badge: 'recommend' }
-            ]
-        },
-
         // 零界魔方园区 - AI应用与智能体
         lingangmofang: {
             id: 'lingangmofang',
-            name: '零界魔方园区',
+            name: '零界魔方OPC社区',
             shortName: '零界魔方',
             icon: 'fa-cube',
             theme: {
@@ -282,7 +89,7 @@ const PARK_CONFIG = {
                 availability: '99.9%',
                 subsidy: '45%'
             },
-            description: 'AI应用创新平台，提供模型、应用、算力一站式服务',
+            description: '临港"超级个体"孵化社区，为青年创业者提供零门槛、零成本创业服务，打造一人公司"效率引擎"',
             models: [
                 { name: 'GLM-4.6V', desc: '智谱视觉推理模型，全球100B级效果最佳，原生支持工具调用，能看会干', context: '视觉Agent', price: '¥0.02/1K tokens', tags: ['cv', 'multi'], badge: 'hot' },
                 { name: 'Qwen3-Omni', desc: '通义全模态模型，支持文本、图像、音频、视频多模态理解与生成', context: '全模态', price: '¥0.025/1K tokens', tags: ['multi'], badge: 'new' },
@@ -296,6 +103,51 @@ const PARK_CONFIG = {
                 { name: 'GLM-TTS', desc: '智谱超拟人语音合成，塑造生动自然的听觉体验', context: '语音合成', price: '¥0.015/分钟', tags: ['audio'], badge: '' },
                 { name: 'Fun-ASR', desc: '通义语音识别模型，精准识别嘈杂环境、专业术语及混合语种', context: '多语言', price: '¥0.02/分钟', tags: ['audio'], badge: 'new' },
                 { name: 'DeepSeek Coder V2', desc: '深度求索代码模型，编程能力卓越，适合开发场景', context: '64K', price: '¥0.008/1K tokens', tags: ['nlp'], badge: 'recommend' }
+            ]
+        },
+
+        // 影视基地园区 - 专注数字内容创作
+        yingshi: {
+            id: 'yingshi',
+            name: '东方明珠影视基地',
+            shortName: '影视基地',
+            icon: 'fa-tv',
+            theme: {
+                primary: '#f59e0b',
+                primaryDark: '#d97706',
+                gradient: 'linear-gradient(135deg, #f59e0b, #d97706)'
+            },
+            features: {
+                models: true,
+                resources: true,
+                agent: true,
+                innovation: true,
+                activities: true
+            },
+            hero: {
+                title: '赋能数字内容创作',
+                subtitle: '渲染算力与AI辅助工具，加速影视制作流程'
+            },
+            stats: {
+                companies: '200+',
+                gpus: '500+',
+                availability: '99.9%',
+                subsidy: '40%'
+            },
+            description: 'SMG BesTV+流媒体战略载体，占地面积超8万平方米，提供数字内容创作、影视渲染算力与AI工具',
+            models: [
+                { name: '可灵 2.6', desc: '快手新一代AI创意生产力平台，支持视频生成、图片生成、动作控制、数字人等', context: '4K视频', price: '¥0.50/次', tags: ['video', 'multi'], badge: 'hot' },
+                { name: 'Wan2.6-T2V', desc: '通义万相视频生成模型，自然音画同步，智能多镜头叙事', context: '高清视频', price: '¥0.60/次', tags: ['video', 'multi'], badge: 'new' },
+                { name: 'Wan2.6-I2V', desc: '通义图生视频模型，智能多镜头叙事，角色一致性保持', context: '视频生成', price: '¥0.55/次', tags: ['video', 'multi'], badge: 'recommend' },
+                { name: '豆包视频生成模型2.0', desc: '字节跳动最新视频生成模型，支持高保真4K视频生成，智能镜头控制', context: '4K视频', price: '¥0.80/次', tags: ['video', 'multi'], badge: 'hot' },
+                { name: '豆包实时语音模型', desc: '字节跳动实时语音交互模型，极速响应，自然流畅', context: '实时交互', price: '¥0.10/分钟', tags: ['audio'], badge: 'new' },
+                { name: '豆包音乐模型', desc: '字节跳动AI音乐生成模型，支持多风格音乐创作与编曲', context: '专业级', price: '¥0.25/首', tags: ['audio', 'multi'], badge: 'recommend' },
+                { name: '豆包语音合成模型2.0', desc: '字节跳动语音合成模型升级版，超拟人语音，情感表达丰富', context: '语音合成', price: '¥0.012/分钟', tags: ['audio'], badge: 'hot' },
+                { name: 'Midjourney V6', desc: '顶尖AI绘画工具，生成专业级影视概念图与海报', context: '专业级', price: '¥0.50/张', tags: ['cv', 'multi'], badge: 'hot' },
+                { name: 'GLM-Image', desc: '智谱图像生成模型，文字渲染开源SOTA，海报科普图表现佳', context: '图文混排', price: '¥0.03/张', tags: ['cv', 'multi'], badge: 'recommend' },
+                { name: 'Wan2.6-T2I', desc: '通义文生图模型，强大的指令遵循能力', context: '高清输出', price: '¥0.04/张', tags: ['cv', 'multi'], badge: 'recommend' },
+                { name: 'CosyVoice-V3', desc: '通义语音合成模型，超拟人语音，塑造生动自然的听觉体验', context: '语音合成', price: '¥0.015/分钟', tags: ['audio'], badge: 'new' },
+                { name: 'Suno AI', desc: 'AI音乐生成，支持影视配乐与音效创作', context: '音乐生成', price: '¥0.20/首', tags: ['audio', 'multi'], badge: 'recommend' }
             ]
         },
 
@@ -327,7 +179,7 @@ const PARK_CONFIG = {
                 availability: '99.9%',
                 subsidy: '55%'
             },
-            description: '聚焦AI研发与大模型创新，打造人工智能产业高地',
+            description: '目标3年集聚AI人才2-3万人，汇集企业500家，已集聚270家企业，产业规模达270亿元',
             models: [
                 { name: 'DeepSeek V3.2', desc: '深度求索最新旗舰模型，强化Agent能力，融入思考推理', context: '128K', price: '¥0.01/1K tokens', tags: ['nlp', 'multi'], badge: 'hot' },
                 { name: 'Qwen3-Max', desc: '阿里通义旗舰模型，全能至强，超万亿参数', context: '128K', price: '¥0.02/1K tokens', tags: ['nlp', 'multi'], badge: 'recommend' },
@@ -338,129 +190,6 @@ const PARK_CONFIG = {
                 { name: '豆包角色扮演模型', desc: '字节跳动角色扮演专用模型，多角色演绎', context: '128K', price: '¥0.015/1K tokens', tags: ['nlp', 'multi'], badge: 'new' },
                 { name: 'Qwen3-Coder-Plus', desc: '通义代码专用模型，代码与Agent能力突出', context: '64K', price: '¥0.01/1K tokens', tags: ['nlp'], badge: 'recommend' },
                 { name: 'DeepSeek R1', desc: '深度求索推理模型，擅长复杂逻辑与数学问题', context: '64K', price: '¥0.02/1K tokens', tags: ['nlp'], badge: 'new' }
-            ]
-        },
-
-        // 滴水湖IC创新港 - 集成电路与芯片设计
-        icinnovation: {
-            id: 'icinnovation',
-            name: '滴水湖IC创新港',
-            shortName: 'IC创新港',
-            icon: 'fa-microchip',
-            theme: {
-                primary: '#06b6d4',
-                primaryDark: '#0891b2',
-                gradient: 'linear-gradient(135deg, #06b6d4, #0891b2)'
-            },
-            features: {
-                models: true,
-                resources: true,
-                agent: true,
-                innovation: false,
-                activities: true
-            },
-            hero: {
-                title: '集成电路设计创新中心',
-                subtitle: 'EDA云化、芯片设计、半导体研发一站式服务'
-            },
-            stats: {
-                companies: '80+',
-                gpus: '400+',
-                availability: '99.9%',
-                subsidy: '50%'
-            },
-            description: '聚焦集成电路与芯片设计，提供EDA云化和算力支持',
-            models: [
-                { name: 'DeepSeek Coder V2', desc: '深度求索代码模型，编程能力卓越，适合芯片设计代码开发', context: '64K', price: '¥0.008/1K tokens', tags: ['nlp'], badge: 'hot' },
-                { name: 'Qwen3-Coder-Plus', desc: '通义代码专用模型，Verilog/VHDL等硬件描述语言支持', context: '64K', price: '¥0.01/1K tokens', tags: ['nlp'], badge: 'recommend' },
-                { name: 'GLM-5', desc: '智谱旗舰模型，支持技术文档生成与设计辅助', context: '128K', price: '¥0.015/1K tokens', tags: ['nlp', 'multi'], badge: 'recommend' },
-                { name: '豆包语音合成模型2.0', desc: '字节跳动语音合成模型升级版，技术讲解语音', context: '语音合成', price: '¥0.012/分钟', tags: ['audio'], badge: 'recommend' },
-                { name: '豆包视频生成模型2.0', desc: '字节跳动视频生成模型，芯片设计演示视频', context: '4K视频', price: '¥0.80/次', tags: ['video', 'multi'], badge: 'new' },
-                { name: 'Qwen3-VL-Plus', desc: '通义视觉模型，芯片版图分析与缺陷检测', context: '视觉感知', price: '¥0.015/次', tags: ['cv', 'multi'], badge: 'new' },
-                { name: 'GLM-OCR', desc: '智谱OCR模型，技术文档与规格书智能解析', context: '文档解析', price: '¥0.008/页', tags: ['cv'], badge: 'recommend' }
-            ]
-        },
-
-        // 滴水湖国际数据港 - 数据服务与云计算
-        dataharbor: {
-            id: 'dataharbor',
-            name: '滴水湖国际数据港',
-            shortName: '国际数据港',
-            icon: 'fa-database',
-            theme: {
-                primary: '#3b82f6',
-                primaryDark: '#1d4ed8',
-                gradient: 'linear-gradient(135deg, #3b82f6, #1d4ed8)'
-            },
-            features: {
-                models: true,
-                resources: true,
-                agent: true,
-                innovation: true,
-                activities: true
-            },
-            hero: {
-                title: '国际数据服务枢纽',
-                subtitle: '跨境数据、云计算、大数据分析一站式平台'
-            },
-            stats: {
-                companies: '120+',
-                gpus: '500+',
-                availability: '99.99%',
-                subsidy: '40%'
-            },
-            description: '国际数据服务枢纽，提供跨境数据、云计算、大数据分析服务',
-            models: [
-                { name: 'Qwen-Long', desc: '通义长文本模型，支持超长文档分析与数据处理', context: '1M', price: '¥0.001/1K tokens', tags: ['nlp'], badge: 'hot' },
-                { name: 'Qwen3-Max', desc: '通义旗舰模型，多语言数据处理能力强', context: '128K', price: '¥0.02/1K tokens', tags: ['nlp', 'multi'], badge: 'recommend' },
-                { name: '豆包视频生成模型2.0', desc: '字节跳动视频生成模型，数据可视化视频制作', context: '4K视频', price: '¥0.80/次', tags: ['video', 'multi'], badge: 'new' },
-                { name: '豆包语音合成模型2.0', desc: '字节跳动语音合成模型，多语言语音解说', context: '语音合成', price: '¥0.012/分钟', tags: ['audio'], badge: 'recommend' },
-                { name: '豆包角色扮演模型', desc: '字节跳动角色扮演模型，多语言客服', context: '128K', price: '¥0.015/1K tokens', tags: ['nlp', 'multi'], badge: 'new' },
-                { name: 'GLM-4.6V', desc: '智谱视觉推理模型，数据可视化分析与报表生成', context: '视觉Agent', price: '¥0.02/1K tokens', tags: ['cv', 'multi'], badge: 'new' },
-                { name: 'Claude Haiku 4.5', desc: 'Anthropic轻量模型，高并发数据处理场景', context: '200K', price: '¥0.005/1K tokens', tags: ['nlp'], badge: 'recommend' },
-                { name: 'Fun-ASR', desc: '通义语音识别，多语言数据转录与处理', context: '多语言', price: '¥0.02/分钟', tags: ['audio'], badge: 'recommend' },
-                { name: 'GLM-OCR', desc: '智谱OCR模型，多格式文档数据提取', context: '文档解析', price: '¥0.008/页', tags: ['cv'], badge: 'new' }
-            ]
-        },
-
-        // 滴水湖金融湾 - 金融科技与智能风控
-        financialbay: {
-            id: 'financialbay',
-            name: '滴水湖金融湾',
-            shortName: '金融湾',
-            icon: 'fa-landmark',
-            theme: {
-                primary: '#f59e0b',
-                primaryDark: '#d97706',
-                gradient: 'linear-gradient(135deg, #f59e0b, #d97706)'
-            },
-            features: {
-                models: true,
-                resources: true,
-                agent: true,
-                innovation: false,
-                activities: true
-            },
-            hero: {
-                title: '金融科技创新高地',
-                subtitle: '智能风控、量化分析、金融AI一站式服务'
-            },
-            stats: {
-                companies: '100+',
-                gpus: '350+',
-                availability: '99.99%',
-                subsidy: '35%'
-            },
-            description: '金融科技创新中心，提供智能风控、量化分析、金融AI服务',
-            models: [
-                { name: 'DeepSeek R1', desc: '深度求索推理模型，复杂金融逻辑与风险评估', context: '64K', price: '¥0.02/1K tokens', tags: ['nlp'], badge: 'hot' },
-                { name: 'Claude Sonnet 4.6', desc: 'Anthropic旗舰模型，金融合规审查与报告生成', context: '200K', price: '¥0.03/1K tokens', tags: ['nlp', 'multi'], badge: 'recommend' },
-                { name: 'Qwen3-Max', desc: '通义旗舰模型，金融文本分析与智能客服', context: '128K', price: '¥0.02/1K tokens', tags: ['nlp', 'multi'], badge: 'hot' },
-                { name: '豆包语音合成模型2.0', desc: '字节跳动语音合成模型，金融播报语音', context: '语音合成', price: '¥0.012/分钟', tags: ['audio'], badge: 'recommend' },
-                { name: '豆包角色扮演模型', desc: '字节跳动角色扮演模型，金融咨询助手', context: '128K', price: '¥0.015/1K tokens', tags: ['nlp', 'multi'], badge: 'new' },
-                { name: 'Qwen3-Coder-Plus', desc: '通义代码模型，量化策略开发与回测', context: '64K', price: '¥0.01/1K tokens', tags: ['nlp'], badge: 'recommend' },
-                { name: 'GLM-4.6V', desc: '智谱视觉模型，票据识别与报表分析', context: '视觉Agent', price: '¥0.02/1K tokens', tags: ['cv', 'multi'], badge: 'new' },
-                { name: 'GLM-OCR', desc: '智谱OCR模型，金融票据与证件识别', context: '票据识别', price: '¥0.01/页', tags: ['cv'], badge: 'recommend' }
             ]
         }
     }

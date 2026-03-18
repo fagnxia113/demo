@@ -22,6 +22,87 @@
             --primary-dark: #2563eb;
             --primary-gradient: linear-gradient(135deg, #3b82f6, #2563eb);
         }
+
+        /* 品牌LOGO展示区样式 */
+        .brand-showcase {
+            background: linear-gradient(135deg, #f8fafc, #f1f5f9);
+            border-radius: 16px;
+            padding: 32px;
+            margin-bottom: 32px;
+            border: 1px solid #e2e8f0;
+        }
+
+        .brand-showcase-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #1e293b;
+            margin-bottom: 24px;
+            text-align: center;
+        }
+
+        .brand-logos {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            flex-wrap: wrap;
+        }
+
+        .brand-logo {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+            padding: 20px 32px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            border: 1px solid #e5e7eb;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .brand-logo:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+            border-color: #3b82f6;
+        }
+
+        .brand-logo-icon {
+            width: 64px;
+            height: 64px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 12px;
+            font-size: 32px;
+            font-weight: 700;
+            color: white;
+        }
+
+        .brand-logo-name {
+            font-size: 14px;
+            font-weight: 500;
+            color: #475569;
+        }
+
+        .brand-logo-desc {
+            font-size: 11px;
+            color: #94a3b8;
+        }
+
+        /* 品牌标识色 */
+        .brand-glm .brand-logo-icon { background: linear-gradient(135deg, #8b5cf6, #6d28d9); }
+        .brand-doubao .brand-logo-icon { background: linear-gradient(135deg, #3b82f6, #2563eb); }
+        .brand-kimi .brand-logo-icon { background: linear-gradient(135deg, #ef4444, #dc2626); }
+        .brand-deepseek .brand-logo-icon { background: linear-gradient(135deg, #f59e0b, #d97706); }
+        .brand-tongyi .brand-logo-icon { background: linear-gradient(135deg, #10b981, #059669); }
+
+        @media (max-width: 640px) {
+            .brand-logos { gap: 16px; }
+            .brand-logo { padding: 16px 24px; min-width: 80px; }
+            .brand-logo-icon { width: 48px; height: 48px; font-size: 24px; }
+            .brand-logo-name { font-size: 12px; }
+        }
     </style>
 </head>
 <body onload="initParkPage()">
@@ -35,9 +116,10 @@
             <nav class="nav" id="mainNav">
                 <a href="index.html" class="nav-item">首页</a>
                 <a href="models.html" class="nav-item active" data-feature="models">模型广场</a>
-                <a href="resources.html" class="nav-item" data-feature="resources">优惠资源</a>
-                <a href="agent.html" class="nav-item" data-feature="agent">智能助手</a>
-                <a href="innovation.html" class="nav-item" data-feature="innovation">创新世界</a>
+                <a href="resources.html" class="nav-item" data-feature="resources">算力资源</a>
+                <a href="agent.html" class="nav-item" data-feature="agent">OpenClaw</a>
+                <a href="cross-border.html" class="nav-item" data-feature="cross-border">跨境专线</a>
+                <a href="innovation.html" class="nav-item" data-feature="innovation">创新生态</a>
                 <a href="activities.html" class="nav-item" data-feature="activities">线下活动</a>
                 <a href="dashboard.html" class="nav-item">控制台</a>
             </nav>
@@ -72,7 +154,39 @@
                 <button class="tab-btn" data-tab="cv">计算机视觉</button>
                 <button class="tab-btn" data-tab="audio">语音处理</button>
                 <button class="tab-btn" data-tab="video">视频生成</button>
-                <button class="tab-btn" data-tab="multi">多模态</button>
+                <button class="tab-btn" data-tab="multi">多模态</</button>
+            </div>
+
+            <!-- "全部"分类下的品牌展示 -->
+            <div id="brandShowcase" class="brand-showcase" style="display: none;">
+                <h2 class="brand-showcase-title">所有品牌</h2>
+                <div class="brand-logos">
+                    <div class="brand-logo brand-glm">
+                        <div class="brand-logo-icon">GLM</div>
+                        <div class="brand-logo-name">智谱 AI</div>
+                        <div class="brand-logo-desc">ChatGLM系列</div>
+                    </div>
+                    <div class="brand-logo brand-doubao">
+                        <div class="brand-logo-icon">豆包</div>
+                        <div class="brand-logo-name">字节跳动</div>
+                        <div class="brand-logo-desc">Doubao Pro</div>
+                    </div>
+                    <div class="brand-logo brand-kimi">
+                        <div class="brand-logo-icon">Kimi</div>
+                        <div class="brand-logo-name">月之暗面</div>
+                        <div class="brand-logo-desc">Kimi Chat</div>
+                    </div>
+                    <div class="brand-logo brand-deepseek">
+                        <div class="brand-logo-icon">DeepSeek</div>
+                        <div class="brand-logo-name">深度求索</div>
+                        <div class="brand-logo-desc">DeepSeek V2</div>
+                    </div>
+                    <div class="brand-logo brand-tongyi">
+                        <div class="brand-logo-icon">通义</div>
+                        <div class="brand-logo-name">阿里巴巴</div>
+                        <div class class="brand-logo-desc">通义千问</div>
+                    </div>
+                </div>
             </div>
 
             <!-- 模型列表 - 动态渲染 -->
@@ -90,9 +204,10 @@
                     <h4>平台服务</h4>
                     <ul>
                         <li><a href="models.html">模型广场</a></li>
-                        <li><a href="resources.html">优惠资源</a></li>
-                        <li><a href="agent.html">智能助手</a></li>
-                        <li><a href="innovation.html">创新世界</a></li>
+                        <li><a href="resources.html">算力资源</a></li>
+                        <li><a href="agent.html">OpenClaw</a></li>
+                        <li><a href="cross-border.html">跨境专线</a></li>
+                        <li><a href="innovation.html">创新生态</a></li>
                     </ul>
                 </div>
                 <div class="footer-section">
@@ -227,6 +342,12 @@
                     document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
                     this.classList.add('active');
                     filterModels(this.dataset.tab);
+                    
+                    // "全部"分类时显示品牌展示区
+                    const brandShowcase = document.getElementById('brandShowcase');
+                    if (brandShowcase) {
+                        brandShowcase.style.display = this.dataset.tab === 'all' ? 'block' : 'none';
+                    }
                 });
             });
 
